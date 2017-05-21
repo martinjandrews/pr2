@@ -1,14 +1,44 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h1>
   <%= @tournament.name %>
-</p>
+</h1>
 
 <p>
-  <strong>Description:</strong>
   <%= @tournament.description %>
 </p>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Year</th>
+    <th>Start date</th>
+    <th>End date</th>
+    <th>Multiplier</th>
+    <th colspan="2"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @tournament.editions.each do |edition| %>
+      <tr>
+        <td><%= edition.year %></td>
+        <td><%= edition.start_date %></td>
+        <td><%= edition.end_date %></td>
+        <td><%= edition.multiplier %></td>
+        <td><%= link_to 'Edit', edit_edition_path(edition) %></td>
+        <td><%= link_to 'Destroy', edition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Edition', new_edition_path(tournament_id: @tournament), :class => "btn btn-default" %>
+
+<br/>
+<br/>
 
 <%= link_to 'Edit', edit_tournament_path(@tournament) %> |
 <%= link_to 'Back', tournaments_path %>

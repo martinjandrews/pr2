@@ -15,6 +15,7 @@ class EditionsController < ApplicationController
   # GET /editions/new
   def new
     @edition = Edition.new
+    @edition.tournament = Tournament.find(params[:tournament_id])
   end
 
   # GET /editions/1/edit
@@ -28,7 +29,7 @@ class EditionsController < ApplicationController
 
     respond_to do |format|
       if @edition.save
-        format.html { redirect_to @edition, notice: 'Edition was successfully created.' }
+        format.html { redirect_to @edition.tournament, notice: 'Edition was successfully created.' }
         format.json { render :show, status: :created, location: @edition }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class EditionsController < ApplicationController
   def update
     respond_to do |format|
       if @edition.update(edition_params)
-        format.html { redirect_to @edition, notice: 'Edition was successfully updated.' }
+        format.html { redirect_to @edition.tournament, notice: 'Edition was successfully updated.' }
         format.json { render :show, status: :ok, location: @edition }
       else
         format.html { render :edit }
