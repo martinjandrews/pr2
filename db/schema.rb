@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170521061227) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "editions", force: :cascade do |t|
     t.integer "year"
     t.date "start_date"
