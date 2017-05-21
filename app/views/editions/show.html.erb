@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>
+  <%= @edition.name %>
+</h1>
+
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Position</th>
+    <th>Player</th>
+    <th colspan="2"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @edition.placings.each do |placing| %>
+      <tr>
+        <td><%= placing.position %></td>
+        <td><%= placing.player.name %></td>
+        <td><%= link_to 'Edit', edit_placing_path(placing) %></td>
+        <td><%= link_to 'Destroy', placing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Placing', new_placing_path(edition_id: @edition), :class => "btn btn-default" %>
+
+<br/>
+<br/>
+
+<%= link_to 'Edit', edit_edition_path(@edition) %> |
+<%= link_to 'Back', @edition.tournament %>

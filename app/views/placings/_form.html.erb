@@ -1,11 +1,8 @@
-<%= semantic_form_for @placing do |f| %>
-    <%= f.inputs do %>
-        <%= f.input :position %>
-        <%= f.input :edition %>
-        <%= f.input :player %>
-    <% end %>
+<%= simple_form_for(@placing) do |form| %>
+    <%= form.input :position, collection: [1,2,3,4,6,8,12,16,24,32,48], as: :radio_buttons %>
+    <%= form.association :player %>
+    <%= form.association :edition %>
 
-    <%= f.actions do %>
-        <%= f.action :submit, :as => :input %>
-    <% end %>
+    <%= form.button :submit %>
 <% end %>
+

@@ -15,6 +15,7 @@ class PlacingsController < ApplicationController
   # GET /placings/new
   def new
     @placing = Placing.new
+    @placing.edition = Edition.find(params[:edition_id])
   end
 
   # GET /placings/1/edit
@@ -28,7 +29,7 @@ class PlacingsController < ApplicationController
 
     respond_to do |format|
       if @placing.save
-        format.html { redirect_to @placing, notice: 'Placing was successfully created.' }
+        format.html { redirect_to @placing.edition, notice: 'Placing was successfully created.' }
         format.json { render :show, status: :created, location: @placing }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class PlacingsController < ApplicationController
   def update
     respond_to do |format|
       if @placing.update(placing_params)
-        format.html { redirect_to @placing, notice: 'Placing was successfully updated.' }
+        format.html { redirect_to @placing.edition, notice: 'Placing was successfully updated.' }
         format.json { render :show, status: :ok, location: @placing }
       else
         format.html { render :edit }
