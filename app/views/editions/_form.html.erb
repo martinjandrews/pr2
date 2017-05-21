@@ -1,0 +1,13 @@
+<%= semantic_form_for @edition do |f| %>
+    <%= f.inputs do %>
+        <%= f.input :year %>
+        <%= f.input :start_date %>
+        <%= f.input :end_date %>
+        <%= f.input :multiplier %>
+        <%= f.input :tournament %>
+    <% end %>
+
+    <%= f.actions do %>
+        <%= f.action :submit, :as => :input %>
+    <% end %>
+<% end %>

@@ -1,0 +1,11 @@
+<%= semantic_form_for @placing do |f| %>
+    <%= f.inputs do %>
+        <%= f.input :position %>
+        <%= f.input :edition %>
+        <%= f.input :player %>
+    <% end %>
+
+    <%= f.actions do %>
+        <%= f.action :submit, :as => :input %>
+    <% end %>
+<% end %>

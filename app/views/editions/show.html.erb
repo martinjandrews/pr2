@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @edition.year %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @edition.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @edition.end_date %>
+</p>
+
+<p>
+  <strong>Multiplier:</strong>
+  <%= @edition.multiplier %>
+</p>
+
+<p>
+  <strong>Tournament:</strong>
+  <%= @edition.tournament %>
+</p>
+
+<%= link_to 'Edit', edit_edition_path(@edition) %> |
+<%= link_to 'Back', editions_path %>

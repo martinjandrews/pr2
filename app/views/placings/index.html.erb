@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Placings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Position</th>
+      <th>Edition</th>
+      <th>Player</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @placings.each do |placing| %>
+      <tr>
+        <td><%= placing.position %></td>
+        <td><%= placing.edition %></td>
+        <td><%= placing.player %></td>
+        <td><%= link_to 'Show', placing %></td>
+        <td><%= link_to 'Edit', edit_placing_path(placing) %></td>
+        <td><%= link_to 'Destroy', placing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Placing', new_placing_path %>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @placing.position %>
+</p>
+
+<p>
+  <strong>Edition:</strong>
+  <%= @placing.edition %>
+</p>
+
+<p>
+  <strong>Player:</strong>
+  <%= @placing.player %>
+</p>
+
+<%= link_to 'Edit', edit_placing_path(@placing) %> |
+<%= link_to 'Back', placings_path %>
