@@ -3,9 +3,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th></th>
+      <th>Name</th>
       <% if current_user %>
           <th colspan="2"></th>
       <% end %>
@@ -15,9 +13,7 @@
   <tbody>
     <% @players.sort_by{|each| each.name}.each do |player| %>
       <tr>
-        <td><%= player.first_name %></td>
-        <td><%= player.last_name %></td>
-        <td><%= link_to 'Show', player %></td>
+        <td><%= link_to player.name, player %></td>
         <% if current_user %>
             <td><%= link_to 'Edit', edit_player_path(player) %></td>
             <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>

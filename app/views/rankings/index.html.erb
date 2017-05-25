@@ -17,11 +17,10 @@
   <% @player_list.each do |player, points| %>
       <tr>
         <td><%= rank if last_points != points[:total] %></td>
-        <td><%= player.name %></td>
+        <td><%= link_to player.name, player %></td>
         <td><%= points[:last_year].sort.reverse.first(4).sum %></td>
         <td><%= points[:previous_year].sort.reverse.first(4).sum %></td>
         <td><%= points[:total] %></td>
-        <td><%= link_to 'Show', player %></td>
       </tr>
     <% rank += 1 %>
     <% last_points = points[:total] %>

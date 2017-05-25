@@ -12,7 +12,7 @@
   <% @player.placings.sort_by{|each| each.edition.end_date}.reverse.each do |placing| %>
       <tr>
         <td><%= placing.position %></td>
-        <td><%= placing.edition.name %></td>
+        <td><%= link_to placing.edition.name, placing.edition %></td>
       </tr>
   <% end %>
   </tbody>

@@ -9,7 +9,7 @@
 <table class="table">
   <thead>
   <tr>
-    <th>Year</th>
+    <th>Edition</th>
     <th>Start date</th>
     <th>End date</th>
     <th>Multiplier</th>
@@ -23,11 +23,10 @@
   <tbody>
   <% @tournament.editions.sort_by{|each| each.year}.reverse.each do |edition| %>
       <tr>
-        <td><%= edition.year %></td>
+        <td><%= link_to edition.name, edition %></td>
         <td><%= edition.start_date %></td>
         <td><%= edition.end_date %></td>
         <td><%= edition.multiplier %></td>
-        <td><%= link_to 'Show', edition %></td>
         <% if current_user %>
             <td><%= link_to 'Edit', edit_edition_path(edition) %></td>
             <td><%= link_to 'Destroy', edition, method: :delete, data: { confirm: 'Are you sure?' } %></td>

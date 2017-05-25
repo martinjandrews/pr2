@@ -17,7 +17,7 @@
   <% @edition.placings.sort_by{|each| each.position}.each do |placing| %>
       <tr>
         <td><%= placing.position %></td>
-        <td><%= placing.player.name %></td>
+        <td><%= link_to placing.player.name, placing.player %></td>
         <% if current_user %>
             <td><%= link_to 'Edit', edit_placing_path(placing) %></td>
             <td><%= link_to 'Destroy', placing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
