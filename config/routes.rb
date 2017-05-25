@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   resources :players
   resources :editions
   resources :tournaments
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root to: 'home#index'
 end
