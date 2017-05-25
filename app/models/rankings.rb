@@ -17,7 +17,7 @@ class Rankings
     @last_year_editions = []
     @previous_year_editions = []
     @player_points = {}
-    Edition.all.sort_by{|each| each.year}.reverse.each do |edition|
+    Edition.all.sort_by{|each| each.end_date}.reverse.each do |edition|
       if tournament_count(@last_year_editions, edition.tournament) < 1
           @last_year_editions << edition
       elsif tournament_count(@previous_year_editions, edition.tournament) < 1

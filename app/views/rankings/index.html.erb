@@ -18,12 +18,12 @@
       <tr>
         <td><%= rank if last_points != points[:total] %></td>
         <td><%= player.name %></td>
-        <td><%= points[:last_year].sum %></td>
-        <td><%= points[:previous_year].sum %></td>
+        <td><%= points[:last_year].sort.reverse.first(4).sum %></td>
+        <td><%= points[:previous_year].sort.reverse.first(4).sum %></td>
         <td><%= points[:total] %></td>
         <td><%= link_to 'Show', player %></td>
       </tr>
-    <% rank += 1 if last_points != points[:total] %>
+    <% rank += 1 %>
     <% last_points = points[:total] %>
   <% end %>
   </tbody>
