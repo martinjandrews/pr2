@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   resources :players
   resources :editions
   resources :tournaments
+  get 'rankings', to: 'rankings#index'
   root to: 'home#index'
 end
