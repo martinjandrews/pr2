@@ -55,9 +55,10 @@ class EditionsController < ApplicationController
   # DELETE /editions/1
   # DELETE /editions/1.json
   def destroy
+    tournament = @edition.tournament
     @edition.destroy
     respond_to do |format|
-      format.html { redirect_to editions_url, notice: 'Edition was successfully destroyed.' }
+      format.html { redirect_to tournament, notice: 'Edition was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
