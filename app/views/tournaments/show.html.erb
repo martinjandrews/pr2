@@ -20,7 +20,7 @@
   </thead>
 
   <tbody>
-  <% @tournament.editions.each do |edition| %>
+  <% @tournament.editions.sort_by{|each| each.year}.reverse.each do |edition| %>
       <tr>
         <td><%= edition.year %></td>
         <td><%= edition.start_date %></td>

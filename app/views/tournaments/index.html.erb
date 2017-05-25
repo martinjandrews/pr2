@@ -12,7 +12,7 @@
   </thead>
 
   <tbody>
-    <% @tournaments.each do |tournament| %>
+    <% @tournaments.sort_by{|each| each.name}.each do |tournament| %>
       <tr>
         <td><%= tournament.name %></td>
         <td><%= tournament.description %></td>

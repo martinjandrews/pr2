@@ -15,7 +15,7 @@
   </thead>
 
   <tbody>
-  <% @edition.placings.each do |placing| %>
+  <% @edition.placings.sort_by{|each| each.position}.each do |placing| %>
       <tr>
         <td><%= placing.position %></td>
         <td><%= placing.player.name %></td>
