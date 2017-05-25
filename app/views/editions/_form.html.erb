@@ -5,11 +5,6 @@
     <%= form.input :multiplier %>
     <%= form.association :tournament %>
 
-    <%= form.simple_fields_for :placing do |placing_form| %>
-        <%= placing_form.input :position %>
-        <%= placing_form.input :player %>
-    <% end %>
-
     <%= form.button :submit %>
 <% end %>
 
