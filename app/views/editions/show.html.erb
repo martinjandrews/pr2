@@ -7,7 +7,9 @@
   <tr>
     <th>Position</th>
     <th>Player</th>
-    <th colspan="2"></th>
+    <% if current_user %>
+        <th colspan="2"></th>
+    <% end %>
   </tr>
   </thead>
 
@@ -16,8 +18,10 @@
       <tr>
         <td><%= placing.position %></td>
         <td><%= placing.player.name %></td>
-        <td><%= link_to 'Edit', edit_placing_path(placing) %></td>
-        <td><%= link_to 'Destroy', placing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_user %>
+            <td><%= link_to 'Edit', edit_placing_path(placing) %></td>
+            <td><%= link_to 'Destroy', placing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
   <% end %>
   </tbody>
@@ -25,10 +29,14 @@
 
 <br>
 
+<% if current_user %>
 <%= link_to 'New Placing', new_placing_path(edition_id: @edition), :class => "btn btn-default" %>
+<% end %>
 
 <br/>
 <br/>
 
-<%= link_to 'Edit', edit_edition_path(@edition) %> |
+<% if current_user %>
+    <%= link_to 'Edit', edit_edition_path(@edition) %> |
+<% end %>
 <%= link_to 'Back', @edition.tournament %>
