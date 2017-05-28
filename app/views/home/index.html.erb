@@ -1,2 +1,21 @@
-<h1>Home</h1>
+<div class="row">
+  <div class="col-md-4">
+    <h3>Rankings</h3>
+    <%= render '/rankings/rankings_table', summary: true %>
+  </div>
 
+  <div class="col-md-4">
+    <h3><%= @edition.name %></h3>
+    <%= render '/editions/edition_placings' %>
+  </div>
+
+  <% player = @player_list[Random.new.rand(20)].first %>
+
+  <div class="col-md-4">
+    <h3>Profile - <%= player.name %></h3>
+
+    <div class="panel panel-default">
+      <%= render '/players/player_stats', player: player %>
+    </div>
+  </div>
+</div>

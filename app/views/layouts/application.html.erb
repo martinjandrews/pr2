@@ -16,7 +16,7 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
@@ -39,19 +39,29 @@
         <li class="<%= 'active' if 'players' == controller_name %>"><a href="/players">Players</a></li>
         <li class="<%= 'active' if 'tournaments' == controller_name %>"><a href="/tournaments">Tournaments</a></li>
       </ul>
-    </div><!--/.nav-collapse -->
+    </div>
+    <!--/.nav-collapse -->
   </div>
 </nav>
+<div class="container">
+  <div>
+    <p>The most comprehensive source of results from pool tournaments in Australia.</p>
+  </div>
+</div>
 
 
 <div class="container">
-
-  <p id="notice" class="notice"><%= notice %></p>
-  <p id="alert" class="alert"><%= alert %></p>
+  <% if notice %>
+      <p id="notice" claass="notice"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+      <p id="alert" class="alert"><%= alert %></p>
+  <% end %>
 
   <%= yield %>
 
-</div><!-- /.container -->
+</div>
+<!-- /.container -->
 
 
 <!-- Bootstrap core JavaScript

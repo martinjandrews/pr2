@@ -1,29 +1,7 @@
 <h1>Rankings</h1>
 
-<table class="table">
-  <thead>
-  <tr>
-    <th>Rank</th>
-    <th>Player</th>
-    <th>Last 12 Months</th>
-    <th>Previous 12 Months</th>
-    <th>Total</th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% rank = 1 %>
-  <% last_points = 0 %>
-  <% @player_list.each do |player, points| %>
-      <tr>
-        <td><%= rank if last_points != points[:total] %></td>
-        <td><%= link_to player.name, player %></td>
-        <td><%= points[:last_year].sort.reverse.first(4).sum %></td>
-        <td><%= points[:previous_year].sort.reverse.first(4).sum %></td>
-        <td><%= points[:total] %></td>
-      </tr>
-    <% rank += 1 %>
-    <% last_points = points[:total] %>
-  <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-md-9">
+    <%= render 'rankings_table', summary: false %>
+  </div>
+</div>

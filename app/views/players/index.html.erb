@@ -1,27 +1,31 @@
 <h1>Players</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <% if current_user %>
-          <th colspan="2"></th>
-      <% end %>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @players.sort_by{|each| each.name}.each do |player| %>
+<div class="row">
+  <div class="col-md-6">
+    <table class="table table-striped table-bordered">
+      <thead>
       <tr>
-        <td><%= link_to player.name, player %></td>
+        <th>Name</th>
         <% if current_user %>
-            <td><%= link_to 'Edit', edit_player_path(player) %></td>
-            <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <th colspan="2"></th>
         <% end %>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      </thead>
+
+      <tbody>
+      <% @players.sort_by { |each| each.name }.each do |player| %>
+          <tr>
+            <td><%= link_to player.name, player %></td>
+            <% if current_user %>
+                <td><%= link_to 'Edit', edit_player_path(player) %></td>
+                <td><%= link_to 'Destroy', player, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+            <% end %>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <br>
 

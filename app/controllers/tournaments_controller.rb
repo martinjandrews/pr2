@@ -5,6 +5,7 @@ class TournamentsController < ApplicationController
   # GET /tournaments.json
   def index
     @tournaments = Tournament.all
+    @last_year_editions = Edition.all.sort_by{|each| each.end_date}.reverse[0..19]
   end
 
   # GET /tournaments/1

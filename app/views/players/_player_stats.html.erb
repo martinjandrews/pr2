@@ -1,0 +1,10 @@
+<table class="table borderless">
+  <tbody>
+  <% player.placings.sort_by { |each| each.edition.end_date }.reverse.each do |placing| %>
+      <tr>
+        <td width="100px" class="text-right"><%= placing.name %></td>
+        <td><%= link_to placing.edition.name, placing.edition %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

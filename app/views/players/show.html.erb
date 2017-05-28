@@ -1,23 +1,6 @@
 <h1><%= @player.name %></h1>
 
-<table class="table">
-  <thead>
-  <tr>
-    <th>Position</th>
-    <th>Event</th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% @player.placings.sort_by{|each| each.edition.end_date}.reverse.each do |placing| %>
-      <tr>
-        <td><%= placing.position %></td>
-        <td><%= link_to placing.edition.name, placing.edition %></td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-
+<%= render 'player_stats', player: @player %>
 
 <% if current_user %>
 <%= link_to 'Edit', edit_player_path(@player) %> |

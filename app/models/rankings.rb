@@ -32,12 +32,12 @@ class Rankings
     end
     @last_year_editions.each do |edition|
       edition.placings.each do |placing|
-        @player_points[placing.player][:last_year] << POSITION_POINTS[placing.position] * edition.multiplier
+        @player_points[placing.player][:last_year] << (POSITION_POINTS[placing.position] * edition.multiplier).to_i
       end
     end
     @previous_year_editions.each do |edition|
       edition.placings.each do |placing|
-        @player_points[placing.player][:previous_year] << POSITION_POINTS[placing.position] * edition.multiplier
+        @player_points[placing.player][:previous_year] << (POSITION_POINTS[placing.position] * edition.multiplier).to_i
       end
     end
     @player_points.each do |player, points_hash|

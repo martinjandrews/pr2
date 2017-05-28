@@ -2,35 +2,16 @@
   <%= @edition.name %>
 </h1>
 
-<table class="table">
-  <thead>
-  <tr>
-    <th>Position</th>
-    <th>Player</th>
-    <% if current_user %>
-        <th colspan="2"></th>
-    <% end %>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% @edition.placings.sort_by{|each| each.position}.each do |placing| %>
-      <tr>
-        <td><%= placing.position %></td>
-        <td><%= link_to placing.player.name, placing.player %></td>
-        <% if current_user %>
-            <td><%= link_to 'Edit', edit_placing_path(placing) %></td>
-            <td><%= link_to 'Destroy', placing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-md-6">
+    <%= render 'edition_placings' %>
+  </div>
+</div>
 
 <br>
 
 <% if current_user %>
-<%= link_to 'New Placing', new_placing_path(edition_id: @edition), :class => "btn btn-default" %>
+    <%= link_to 'New Placing', new_placing_path(edition_id: @edition), :class => "btn btn-default" %>
 <% end %>
 
 <br/>
