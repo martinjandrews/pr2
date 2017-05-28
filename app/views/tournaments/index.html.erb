@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <h1>Tournaments</h1>
     <table class="table table-striped table-bordered">
       <thead>
@@ -24,12 +24,16 @@
       </tbody>
     </table>
   </div>
-  <div class="col-md-6">
+
+  <div class="col-md-8">
     <h1>Latest Events</h1>
     <table class="table table-striped table-bordered">
       <thead>
       <tr>
-        <th>Name</th>
+        <th>Event</th>
+        <th class="text-right">Winner</th>
+        <th></th>
+        <th>Runner Up</th>
       </tr>
       </thead>
 
@@ -37,6 +41,9 @@
       <% @last_year_editions.each do |edition| %>
           <tr>
             <td><%= link_to edition.name, edition %></td>
+            <td class="text-right"><%= link_to edition.winner.name, edition.winner %></td>
+            <td class="text-center">def</td>
+            <td><%= link_to edition.runner_up.name, edition.runner_up %></td>
           </tr>
       <% end %>
       </tbody>

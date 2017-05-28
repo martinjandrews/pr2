@@ -22,7 +22,7 @@
 
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -36,16 +36,18 @@
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li class="<%= 'active' if 'rankings' == controller_name %>"><a href="/rankings">Rankings</a></li>
-        <li class="<%= 'active' if 'players' == controller_name %>"><a href="/players">Players</a></li>
         <li class="<%= 'active' if 'tournaments' == controller_name %>"><a href="/tournaments">Tournaments</a></li>
+        <li class="<%= 'active' if 'players' == controller_name %>"><a href="/players">Players</a></li>
       </ul>
     </div>
     <!--/.nav-collapse -->
   </div>
 </nav>
-<div class="container">
-  <div>
-    <p>The most comprehensive source of results from pool tournaments in Australia.</p>
+
+
+<div class="tagline">
+  <div class="container">
+    <p><i>The most comprehensive source of pool tournament results in Australia.</i></p>
   </div>
 </div>
 

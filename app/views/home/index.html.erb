@@ -12,7 +12,7 @@
   <% player = @player_list[Random.new.rand(20)].first %>
 
   <div class="col-md-4">
-    <h3>Profile - <%= player.name %></h3>
+    <h3>Profile - <%= link_to player.name, player %></h3>
 
     <div class="panel panel-default">
       <%= render '/players/player_stats', player: player %>
