@@ -11,6 +11,6 @@ class HomeController < ApplicationController
     @editions.each { |edition| @header += ", #{edition.name}" }
 
     @placings = Placing.all
-    @players = Players.all
+    @players = Player.all
   end
 end
