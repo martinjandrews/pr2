@@ -8,7 +8,7 @@ class HomeController < ApplicationController
   def export
     @editions = Edition.all
     @header = "Name"
-    editions.each { |edition| @header += ", #{edition.name}" }
+    @editions.each { |edition| @header += ", #{edition.name}" }
 
     @placings = Placing.all
     @players = Players.all
