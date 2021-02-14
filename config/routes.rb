@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   resources :editions
   resources :tournaments
   get 'rankings', to: 'rankings#index'
+  get 'export', to: 'home#export'
   root to: 'home#index'
 end
