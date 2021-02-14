@@ -1,0 +1,10 @@
+<%= @header %>
+<% @players.each do |player| %>
+  <% output = "#{player.first_name} #{player.last_name}" %>
+  <% @editions.all.each do |edition| %>
+    <% placing = @placings.detect {|placing| placing.edition_id == edition.id && placing.player_id == player.id} %>
+    <% result = placing ? ", #{placing.position}" : ", " %>
+    <% output += result %>
+  <% end %>
+  <%= output %>
+<% end %>
