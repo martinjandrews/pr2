@@ -1,0 +1,6 @@
+<%= "Name, #{@edition.name}" %>
+<% @players.each do |player| %>
+  <% placing = @placings.detect {|placing| placing.edition_id == @edition.id && placing.player_id == player.id} %>
+  <% result = placing ? ", #{placing.position}" : ", " %>
+  <%= "#{player.first_name} #{player.last_name}, #{result}" %>
+<% end %>

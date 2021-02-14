@@ -10,6 +10,8 @@ class EditionsController < ApplicationController
   # GET /editions/1
   # GET /editions/1.json
   def show
+    @placings = Placing.all
+    @players = Player.all
   end
 
   # GET /editions/new
