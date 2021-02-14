@@ -5,7 +5,7 @@ require_relative 'config/application'
 
 Rails.application.load_tasks
 
-task :export do
+task :export => :environment do
   header = "Name"
   Edition.all.each do |edition|
     header += ", #{edition.name}"
