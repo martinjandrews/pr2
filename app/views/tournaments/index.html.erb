@@ -41,9 +41,9 @@
       <% @last_year_editions.each do |edition| %>
           <tr>
             <td><%= link_to edition.name, edition %></td>
-            <td class="text-right"><%= link_to edition.winner.name, edition.winner %></td>
+            <td class="text-right"><%= link_to edition.winner.name, edition.winner if edition.winner %></td>
             <td class="text-center">def</td>
-            <td><%= link_to edition.runner_up.name, edition.runner_up %></td>
+            <td><%= link_to edition.runner_up.name, edition.runner_up if edition.runner_up %></td>
           </tr>
       <% end %>
       </tbody>

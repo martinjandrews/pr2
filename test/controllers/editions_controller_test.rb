@@ -2,7 +2,8 @@ require 'test_helper'
 
 class EditionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @edition = editions(:one)
+    sign_in users(:admin)
+    @edition = editions(:nationals_2024)
   end
 
   test "should get index" do
@@ -11,16 +12,21 @@ class EditionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    get new_edition_url
+    get new_edition_url(tournament_id: tournaments(:nationals).id)
     assert_response :success
   end
 
   test "should create edition" do
     assert_difference('Edition.count') do
-      post editions_url, params: { edition: { end_date: @edition.end_date, multiplier: @edition.multiplier, start_date: @edition.start_date, tournament_id: @edition.tournament_id, year: @edition.year } }
+      post editions_url, params: { edition: {
+        year: 2022,
+        start_date: "2022-06-01",
+        end_date: "2022-06-02",
+        multiplier: 1.0,
+        tournament_id: tournaments(:states).id
+      } }
     end
-
-    assert_redirected_to edition_url(Edition.last)
+    assert_redirected_to tournament_url(Edition.last.tournament)
   end
 
   test "should show edition" do
@@ -34,15 +40,14 @@ class EditionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update edition" do
-    patch edition_url(@edition), params: { edition: { end_date: @edition.end_date, multiplier: @edition.multiplier, start_date: @edition.start_date, tournament_id: @edition.tournament_id, year: @edition.year } }
-    assert_redirected_to edition_url(@edition)
+    patch edition_url(@edition), params: { edition: { year: @edition.year } }
+    assert_redirected_to tournament_url(@edition.tournament)
   end
 
   test "should destroy edition" do
     assert_difference('Edition.count', -1) do
       delete edition_url(@edition)
     end
-
-    assert_redirected_to editions_url
+    assert_redirected_to tournament_url(@edition.tournament)
   end
 end

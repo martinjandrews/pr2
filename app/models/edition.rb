@@ -1,6 +1,6 @@
 class Edition < ApplicationRecord
   belongs_to :tournament
-  has_many :placings
+  has_many :placings, dependent: :destroy
 
   validates :year, :start_date, :end_date, :multiplier, :tournament, presence: true
   validates :multiplier, numericality: { greater_than: 0 }, allow_blank: true

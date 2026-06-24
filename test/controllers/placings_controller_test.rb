@@ -2,7 +2,8 @@ require 'test_helper'
 
 class PlacingsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @placing = placings(:one)
+    sign_in users(:admin)
+    @placing = placings(:alice_nationals_2024)
   end
 
   test "should get index" do
@@ -11,16 +12,19 @@ class PlacingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    get new_placing_url
+    get new_placing_url(edition_id: editions(:nationals_2024).id)
     assert_response :success
   end
 
   test "should create placing" do
     assert_difference('Placing.count') do
-      post placings_url, params: { placing: { edition_id: @placing.edition_id, player_id: @placing.player_id, position: @placing.position } }
+      post placings_url, params: { placing: {
+        position: 4,
+        edition_id: editions(:nationals_2024).id,
+        player_id: players(:carol).id
+      } }
     end
-
-    assert_redirected_to placing_url(Placing.last)
+    assert_redirected_to edition_url(Placing.last.edition)
   end
 
   test "should show placing" do
@@ -34,15 +38,14 @@ class PlacingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update placing" do
-    patch placing_url(@placing), params: { placing: { edition_id: @placing.edition_id, player_id: @placing.player_id, position: @placing.position } }
-    assert_redirected_to placing_url(@placing)
+    patch placing_url(@placing), params: { placing: { position: @placing.position } }
+    assert_redirected_to edition_url(@placing.edition)
   end
 
   test "should destroy placing" do
     assert_difference('Placing.count', -1) do
       delete placing_url(@placing)
     end
-
     assert_redirected_to placings_url
   end
 end
