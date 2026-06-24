@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index]
+
   def index
     rankings = Rankings.new
     @player_list = rankings.player_list.sort_by { |k, v| v[:total] }.reverse[0..19]
