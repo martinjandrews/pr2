@@ -18,6 +18,7 @@ require 'uri'
 require 'csv'
 require 'date'
 require 'fileutils'
+require 'json'
 
 SCRIPT_DIR  = __dir__
 RESULTS_DIR = File.join(SCRIPT_DIR, 'results')
@@ -58,36 +59,85 @@ end
 
 PLACEHOLDER_NAMES = %w[BYE TBD].to_set
 
-def placings_from_matches(matches)
+# Parses the bracket feeds from the embedded dataDraws JSON blob.
+# Returns [feeds_winner, feeds_loser] where each is a hash of
+# match_code => next_match_code. Returns [{}, {}] if feeds are absent or
+# all zero (as with single-draw tournaments that don't encode connectivity).
+def parse_bracket_feeds(html)
+  json_str = html[/id="dataDraws">(\{.+?\})<\/div>/m, 1]
+  return [{}, {}] unless json_str
+
+  data = JSON.parse(json_str)
+  feeds_winner = {}
+  feeds_loser  = {}
+  data.each do |code_str, val|
+    next unless val.is_a?(Array) && val.size > 44
+    code  = code_str.to_i
+    w_int = val[42].to_s.to_i
+    l_int = val[44].to_s.to_i
+    feeds_winner[code] = w_int if w_int > 0
+    feeds_loser[code]  = l_int if l_int > 0
+  end
+  [feeds_winner, feeds_loser]
+rescue JSON::ParserError
+  [{}, {}]
+end
+
+# Given a hash of { key => { winner:, loser:, date: } } traces the bracket
+# topology and returns [[position, player_name], ...].
+#
+# When feeds_winner / feeds_loser are provided (parsed from dataDraws JSON)
+# they are used directly to build the backward-edge graph and detect terminal
+# matches. This handles multi-draw formats (e.g. double-elimination with
+# separate winners/losers bracket draws) where the single-final heuristic
+# fails. Falls back to inferring topology from player consecutive match codes
+# when the feeds maps are empty (single-draw tournaments).
+def placings_from_matches(matches, feeds_winner: {}, feeds_loser: {})
   return [] if matches.empty?
 
-  # Exclude placeholder names (BYE, TBD) from player tracking: their long chains
-  # across many bracket slots corrupt the feeds_into topology. The matches
-  # themselves stay in the hash so real players' consecutive-code chains remain
-  # intact (e.g. player beat BYE in match A then played real opponent in match B).
-  player_keys = Hash.new { |h, k| h[k] = [] }
-  matches.each do |key, m|
-    player_keys[m[:winner]] << key unless PLACEHOLDER_NAMES.include?(m[:winner])
-    player_keys[m[:loser]]  << key unless PLACEHOLDER_NAMES.include?(m[:loser])
-  end
-
-  feeds_into = {}
-  player_keys.each_value do |keys|
-    keys.sort.each_cons(2) { |a, b| feeds_into[a] ||= b }
-  end
-
-  # Prefer the highest-coded match on the latest date. This handles tournaments
-  # where match codes don't sort chronologically (e.g. a lower-grade match may
-  # receive a higher code than the main-grade final).
-  last_date = matches.values.map { |m| m[:date] }.compact.max
-  candidates = last_date ? matches.select { |_, m| m[:date] == last_date } : matches
-  final_key  = candidates.keys.max || matches.keys.max
-
   fed_by = Hash.new { |h, k| h[k] = [] }
-  feeds_into.each { |from, to| fed_by[to] << from }
 
+  if feeds_winner.any?
+    # Explicit feeds from dataDraws JSON: build backward edges and find
+    # terminal matches (completed matches whose winner doesn't advance to
+    # another completed match on this page).
+    feeds_winner.each do |from, to|
+      next unless matches.key?(from) && matches.key?(to)
+      fed_by[to] << from
+    end
+    feeds_loser.each do |from, to|
+      next unless matches.key?(from) && matches.key?(to)
+      fed_by[to] << from
+    end
+    terminal_keys = matches.keys.select { |c|
+      w = feeds_winner[c]
+      w.nil? || !matches.key?(w)
+    }.sort
+  else
+    # Fallback: infer topology from each player's sequence of match codes.
+    # Exclude BYE/TBD — their chains across many bracket slots corrupt the
+    # inferred feeds_into graph.
+    player_keys = Hash.new { |h, k| h[k] = [] }
+    matches.each do |key, m|
+      player_keys[m[:winner]] << key unless PLACEHOLDER_NAMES.include?(m[:winner])
+      player_keys[m[:loser]]  << key unless PLACEHOLDER_NAMES.include?(m[:loser])
+    end
+    inferred_feeds = {}
+    player_keys.each_value do |keys|
+      keys.sort.each_cons(2) { |a, b| inferred_feeds[a] ||= b }
+    end
+    inferred_feeds.each { |from, to| fed_by[to] << from }
+
+    # Prefer the highest-coded match on the latest date (handles multi-grade
+    # pages where codes don't sort chronologically).
+    last_date = matches.values.map { |m| m[:date] }.compact.max
+    candidates = last_date ? matches.select { |_, m| m[:date] == last_date } : matches
+    terminal_keys = [candidates.keys.max || matches.keys.max]
+  end
+
+  # BFS backward from all terminal matches simultaneously.
   match_round = {}
-  queue = [[final_key, 0]]
+  queue = terminal_keys.map { |k| [k, 0] }
   until queue.empty?
     key, round = queue.shift
     next if match_round.key?(key)
@@ -95,9 +145,12 @@ def placings_from_matches(matches)
     fed_by[key].each { |prev| queue << [prev, round + 1] }
   end
 
-  placings = [[1, matches[final_key][:winner]]]
-  position = 2
+  return [] if match_round.empty?
 
+  # Terminal match winners occupy positions 1..N (sorted by match code).
+  placings = terminal_keys.each_with_index.map { |k, i| [i + 1, matches[k][:winner]] }
+
+  position = terminal_keys.size + 1
   (0..match_round.values.max).each do |round|
     round_keys   = match_round.select { |_, r| r == round }.keys.sort
     round_losers = round_keys.map { |k| matches[k][:loser] }.compact
@@ -108,8 +161,7 @@ def placings_from_matches(matches)
 
   placings.sort_by! { |pos, _| pos }
 
-  # In double-elimination formats a player can lose in the winners bracket, recover
-  # through the losers bracket, and win the whole tournament — producing duplicate
+  # In double-elimination a player can lose then recover, producing duplicate
   # entries. Keep only each player's best (lowest) position, then renumber.
   seen = {}
   placings = placings.each_with_object([]) do |(pos, player), result|
@@ -140,6 +192,10 @@ def scrape_knockout(html)
     match_dates[code.to_i] = date
   end
 
+  # Parse bracket feeds (multi-draw double-elimination). Empty for single-draw
+  # tournaments; the fallback topology inference handles those.
+  feeds_winner, feeds_loser = parse_bracket_feeds(html)
+
   matches = {}
   players.keys.map { |k| k[/cell_(\d+)_/, 1] }.uniq.each do |code|
     h_id = "cell_#{code}_H"
@@ -156,7 +212,7 @@ def scrape_knockout(html)
     end
   end
 
-  placings_from_matches(matches)
+  placings_from_matches(matches, feeds_winner: feeds_winner, feeds_loser: feeds_loser)
 end
 
 # ---------------------------------------------------------------------------- individual match list parser (finals page fallback)
