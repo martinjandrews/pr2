@@ -1,0 +1,34 @@
+# Pool competition URLs for scraping.
+# Format: url,output  
+# Finals pages are fetched automatically for /matches/ URLs.
+# Blank lines and lines starting with # are ignored.
+url,output_prefix
+
+# Kings Cup
+https://www.poolstat.net.au/acteba/knockout/2718/2021-kings-cup,kings_cup_2021
+https://www.poolstat.net.au/acteba/knockout/3353/2022-kings-cup-open-grade,kings_cup_2022
+https://www.poolstat.net.au/ACTEBA/knockout/4268/2023-kings-cup-open-grade,kings_cup_2023
+https://www.poolstat.net.au/ACTEBA/knockout/5387/2024-kings-cup,kings_cup_2024
+https://www.poolstat.net.au/ACTEBA/knockout/6707/2025-kings-cup,kings_cup_2025
+https://www.poolstat.net.au/acteba/knockout/8348/2026-kings-cup,kings_cup_2026
+
+# Killer Crossover
+https://www.poolstat.net.au/killerx/knockout/3554/2022-killer-crossover-open-grade,killer_crossover_2022
+https://www.poolstat.net.au/killerx/knockout/4528/killer-crossover-open-grade,killer_crossover_2023
+https://www.poolstat.net.au/KILLERX/knockout/5667/2024-killer-crossover-open-grade,killer_crossover_2024
+https://www.poolstat.net.au/KILLERX/knockout/7000/2025-killer-crossover-open-grade,killer_crossover_2025
+
+# AEBF Singles
+https://www.poolstat.net.au/aebf/knockout/3744/2022-australian-singles-open-grade,aebf_singles_2022
+https://www.poolstat.net.au/AEBF/knockout/4625/2023-australian-singles-open-grade,aebf_singles_2023
+https://www.poolstat.net.au/AEBF/knockout/5800/2024-australian-singles-open-grade,aebf_singles_2024
+https://www.poolstat.net.au/AEBF/knockout/7328/2025-australian-singles-open-grade,aebf_singles_2025
+
+# Slate Pro
+https://www.poolstat.net.au/slate/knockout/6837/slate-pro-championship,slate_pro_2025
+https://www.poolstat.net.au/slate/knockout/6838/2025-slate-pro-championship-finals,slate_pro_finals_2025
+
+# Big Guns
+
+
+# Gippy Cup Pro
