@@ -1,9 +1,15 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+alice:
+  first_name: Alice
+  last_name: Smith
 
-one:
-  first_name: MyString
-  last_name: MyString
+bob:
+  first_name: Bob
+  last_name: Jones
 
-two:
-  first_name: MyString
-  last_name: MyString
+carol:
+  first_name: Carol
+  last_name: Brown
+
+dave:
+  first_name: Dave
+  last_name: Wilson

@@ -1,11 +1,29 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# nationals_2024: Alice wins (1st, 120*2=240pts), Bob runner-up (2nd, 90*2=180pts)
+# nationals_2023: Alice wins (1st, 120*2=240pts)
+# states_2024:    Carol wins (1st, 120*1=120pts), Alice runner-up (2nd, 90*1=90pts)
+# Expected totals: Alice 570, Bob 180, Carol 120, Dave 0
 
-one:
+alice_nationals_2024:
   position: 1
-  edition: one
-  player: one
+  edition: nationals_2024
+  player: alice
 
-two:
+bob_nationals_2024:
+  position: 2
+  edition: nationals_2024
+  player: bob
+
+alice_nationals_2023:
   position: 1
-  edition: two
-  player: two
+  edition: nationals_2023
+  player: alice
+
+carol_states_2024:
+  position: 1
+  edition: states_2024
+  player: carol
+
+alice_states_2024:
+  position: 2
+  edition: states_2024
+  player: alice

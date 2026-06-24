@@ -1,15 +1,27 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+nationals_2024:
+  year: 2024
+  start_date: 2024-03-01
+  end_date: 2024-03-03
+  multiplier: 2.0
+  tournament: nationals
 
-one:
-  year: 1
-  start_date: 2017-05-21
-  end_date: 2017-05-21
-  multiplier: 1
-  tournament: one
+nationals_2023:
+  year: 2023
+  start_date: 2023-03-01
+  end_date: 2023-03-03
+  multiplier: 2.0
+  tournament: nationals
 
-two:
-  year: 1
-  start_date: 2017-05-21
-  end_date: 2017-05-21
-  multiplier: 1
-  tournament: two
+states_2024:
+  year: 2024
+  start_date: 2024-06-01
+  end_date: 2024-06-02
+  multiplier: 1.0
+  tournament: states
+
+states_2023:
+  year: 2023
+  start_date: 2023-06-01
+  end_date: 2023-06-02
+  multiplier: 1.0
+  tournament: states

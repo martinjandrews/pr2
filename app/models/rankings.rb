@@ -11,24 +11,26 @@ class Rankings
     24 => 15,
     32 => 10,
     48 => 5
-  }
+  }.freeze
+
+  TOP_RESULTS_PER_SLOT = 4
 
   def initialize
     @last_year_editions = []
     @previous_year_editions = []
     @player_points = {}
-    Edition.all.sort_by{|each| each.end_date}.reverse.each do |edition|
+    Edition.includes(:tournament, placings: :player).order(end_date: :desc).each do |edition|
       if tournament_count(@last_year_editions, edition.tournament) < 1
-          @last_year_editions << edition
+        @last_year_editions << edition
       elsif tournament_count(@previous_year_editions, edition.tournament) < 1
-          @previous_year_editions << edition
+        @previous_year_editions << edition
       end
     end
   end
 
   def player_list
     Player.all.each do |player|
-      @player_points[player] = {last_year: [], previous_year: []}
+      @player_points[player] = { last_year: [], previous_year: [] }
     end
     @last_year_editions.each do |edition|
       edition.placings.each do |placing|
@@ -40,16 +42,15 @@ class Rankings
         @player_points[placing.player][:previous_year] << (POSITION_POINTS[placing.position] * edition.multiplier).to_i
       end
     end
-    @player_points.each do |player, points_hash|
-      points_hash[:total] = 0
-      points_hash[:total] += points_hash[:last_year].sort.reverse.first(4).sum
-      points_hash[:total] += points_hash[:previous_year].sort.reverse.first(4).sum
+    @player_points.each_value do |points|
+      points[:total] = points[:last_year].max(TOP_RESULTS_PER_SLOT).sum +
+                       points[:previous_year].max(TOP_RESULTS_PER_SLOT).sum
     end
   end
 
   private
 
   def tournament_count(list, tournament)
-    list.count{|each| each.tournament == tournament}
+    list.count { |e| e.tournament == tournament }
   end
 end
