@@ -4,18 +4,20 @@
     <%= render '/rankings/rankings_table', summary: true %>
   </div>
 
-  <div class="col-md-4">
-    <h3><%= @edition.name %></h3>
-    <%= render '/editions/edition_placings' %>
-  </div>
-
-  <% player = @player_list[Random.new.rand(20)].first %>
-
-  <div class="col-md-4">
-    <h3>Profile - <%= link_to player.name, player %></h3>
-
-    <div class="panel panel-default">
-      <%= render '/players/player_stats', player: player %>
+  <% if @edition %>
+    <div class="col-md-4">
+      <h3><%= @edition.name %></h3>
+      <%= render '/editions/edition_placings' %>
     </div>
-  </div>
+  <% end %>
+
+  <% player = @player_list.sample&.first %>
+  <% if player %>
+    <div class="col-md-4">
+      <h3>Profile - <%= link_to player.name, player %></h3>
+      <div class="panel panel-default">
+        <%= render '/players/player_stats', player: player %>
+      </div>
+    </div>
+  <% end %>
 </div>
