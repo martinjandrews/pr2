@@ -150,26 +150,31 @@ def placings_from_matches(matches, feeds_winner: {}, feeds_loser: {})
   # Terminal match winners occupy positions 1..N (sorted by match code).
   placings = terminal_keys.each_with_index.map { |k, i| [i + 1, matches[k][:winner]] }
 
+  # Losers from the same round share a position equal to the last slot they
+  # collectively occupy: "made the top N" semantics. For example, two
+  # semifinal losers in a single-elimination bracket both get position 4
+  # rather than 3 and 4 — there is no 3rd place.
   position = terminal_keys.size + 1
   (0..match_round.values.max).each do |round|
     round_keys   = match_round.select { |_, r| r == round }.keys.sort
     round_losers = round_keys.map { |k| matches[k][:loser] }.compact
                              .reject { |p| PLACEHOLDER_NAMES.include?(p) }
-    round_losers.each_with_index { |player, i| placings << [position + i, player] }
+    next if round_losers.empty?
+    group_pos = position + round_losers.size - 1
+    round_losers.each { |player| placings << [group_pos, player] }
     position += round_losers.size
   end
 
   placings.sort_by! { |pos, _| pos }
 
   # In double-elimination a player can lose then recover, producing duplicate
-  # entries. Keep only each player's best (lowest) position, then renumber.
+  # entries. Keep only each player's best (lowest) position.
   seen = {}
-  placings = placings.each_with_object([]) do |(pos, player), result|
+  placings.each_with_object([]) do |(pos, player), result|
     next if seen[player]
     seen[player] = true
     result << [pos, player]
   end
-  placings.each_with_index.map { |(_, player), i| [i + 1, player] }
 end
 
 # ---------------------------------------------------------------------------- knockout bracket parser
