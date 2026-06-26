@@ -28,20 +28,23 @@ class Rankings
     end
   end
 
+  def self.points_for(placing)
+    key = POSITION_POINTS.key?(placing.position) ? placing.position : POSITION_POINTS.keys.select { |k| k > placing.position }.min
+    key ? (POSITION_POINTS[key] * placing.edition.multiplier).to_i : 0
+  end
+
   def player_list
     Player.all.each do |player|
       @player_points[player] = { last_year: [], previous_year: [] }
     end
     @last_year_editions.each do |edition|
       edition.placings.each do |placing|
-        key = POSITION_POINTS.key?(placing.position) ? placing.position : POSITION_POINTS.keys.select { |k| k > placing.position }.min
-        @player_points[placing.player][:last_year] << (key ? (POSITION_POINTS[key] * edition.multiplier).to_i : 0)
+        @player_points[placing.player][:last_year] << Rankings.points_for(placing)
       end
     end
     @previous_year_editions.each do |edition|
       edition.placings.each do |placing|
-        key = POSITION_POINTS.key?(placing.position) ? placing.position : POSITION_POINTS.keys.select { |k| k > placing.position }.min
-        @player_points[placing.player][:previous_year] << (key ? (POSITION_POINTS[key] * edition.multiplier).to_i : 0)
+        @player_points[placing.player][:previous_year] << Rankings.points_for(placing)
       end
     end
     @player_points.each_value do |points|
