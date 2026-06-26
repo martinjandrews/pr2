@@ -10,7 +10,9 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.json
   def show
-    @ranking = Rankings.new.rank_for(@player)
+    rankings = Rankings.new
+    @ranking = rankings.rank_for(@player)
+    @used_placings = rankings.used_placings_for(@player)
   end
 
   # GET /players/new

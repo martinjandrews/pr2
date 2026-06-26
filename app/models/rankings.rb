@@ -53,6 +53,18 @@ class Rankings
     end
   end
 
+  def used_placings_for(player)
+    last_year_ids = @last_year_editions.map(&:id).to_set
+    prev_year_ids = @previous_year_editions.map(&:id).to_set
+
+    all = player.placings.includes(:edition)
+    last_placings = all.select { |p| last_year_ids.include?(p.edition_id) }
+    prev_placings = all.select { |p| prev_year_ids.include?(p.edition_id) }
+
+    (last_placings.sort_by { |p| -Rankings.points_for(p) }.first(TOP_RESULTS_PER_SLOT) +
+     prev_placings.sort_by { |p| -Rankings.points_for(p) }.first(TOP_RESULTS_PER_SLOT)).to_set
+  end
+
   def rank_for(player)
     sorted = player_list.sort_by { |_, v| v[:total] }.reverse
     displayed_rank = 1

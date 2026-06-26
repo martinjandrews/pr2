@@ -7,8 +7,9 @@
     </tr>
   </thead>
   <tbody>
+  <% used = local_assigns.fetch(:used_placings, nil) %>
   <% player.placings.sort_by { |each| each.edition.end_date }.reverse.each do |placing| %>
-      <tr>
+      <tr class="<%= 'success' if used&.include?(placing) %>">
         <td width="100px" class="text-right"><%= placing.name %></td>
         <td><%= link_to placing.edition.name, placing.edition %></td>
         <td class="text-right"><%= Rankings.points_for(placing) %> pts</td>
