@@ -1,0 +1,21 @@
+<h1>Merge <%= @player.name %></h1>
+
+<p>
+  Select the player to keep. All of <strong><%= @player.name %></strong>'s
+  placings will be moved to the chosen player, then
+  <strong><%= @player.name %></strong> will be deleted.
+  If both players have a placing in the same edition, the chosen player's
+  placing is kept.
+</p>
+
+<%= form_tag merge_player_path(@player), method: :post do %>
+  <div class="form-group">
+    <%= label_tag :target_player_id, "Merge into" %>
+    <%= select_tag :target_player_id,
+          options_from_collection_for_select(@other_players, :id, :name),
+          class: "form-control" %>
+  </div>
+  <%= submit_tag "Merge", class: "btn btn-danger",
+        data: { confirm: "Are you sure? This cannot be undone." } %>
+  <%= link_to "Cancel", @player, class: "btn btn-default" %>
+<% end %>

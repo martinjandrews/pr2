@@ -1,5 +1,5 @@
 class PlayersController < ApplicationController
-  before_action :set_player, only: [:show, :edit, :update, :destroy]
+  before_action :set_player, only: [:show, :edit, :update, :destroy, :merge]
 
   # GET /players
   # GET /players.json
@@ -48,6 +48,19 @@ class PlayersController < ApplicationController
         format.html { render :edit }
         format.json { render json: @player.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # GET /players/1/merge
+  # POST /players/1/merge
+  def merge
+    if request.post?
+      target = Player.find(params[:target_player_id])
+      name = @player.name
+      @player.merge_into(target)
+      redirect_to target, notice: "#{name} was merged into #{target.name}."
+    else
+      @other_players = Player.where.not(id: @player.id).order(:last_name, :first_name)
     end
   end
 

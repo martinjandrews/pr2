@@ -4,5 +4,6 @@
 
 <% if current_user %>
 <%= link_to 'Edit', edit_player_path(@player) %> |
+<%= link_to 'Merge', merge_player_path(@player) %> |
 <% end %>
 <%= link_to 'Back', players_path %>
