@@ -34,12 +34,14 @@ class Rankings
     end
     @last_year_editions.each do |edition|
       edition.placings.each do |placing|
-        @player_points[placing.player][:last_year] << (POSITION_POINTS[placing.position] * edition.multiplier).to_i
+        key = POSITION_POINTS.key?(placing.position) ? placing.position : POSITION_POINTS.keys.select { |k| k > placing.position }.min
+        @player_points[placing.player][:last_year] << (key ? (POSITION_POINTS[key] * edition.multiplier).to_i : 0)
       end
     end
     @previous_year_editions.each do |edition|
       edition.placings.each do |placing|
-        @player_points[placing.player][:previous_year] << (POSITION_POINTS[placing.position] * edition.multiplier).to_i
+        key = POSITION_POINTS.key?(placing.position) ? placing.position : POSITION_POINTS.keys.select { |k| k > placing.position }.min
+        @player_points[placing.player][:previous_year] << (key ? (POSITION_POINTS[key] * edition.multiplier).to_i : 0)
       end
     end
     @player_points.each_value do |points|
