@@ -1,23 +1,252 @@
-// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// ─── 8ball.fm-inspired dark theme ───────────────────────────────────────────
+// Colors extracted from https://8ball.fm/
+
+$bg:           hsl(260, 40%, 6%);
+$bg-card:      hsl(260, 35%, 10%);
+$bg-secondary: hsl(260, 30%, 15%);
+$border-col:   hsl(260, 30%, 18%);
+$primary:      hsl(262, 52%, 55%);
+$accent:       hsl(27,  96%, 61%);
+$text:         hsl(0,   0%,  98%);
+$text-muted:   hsl(260, 10%, 60%);
+$radius:       0.75rem;
+
+// ─── Base ────────────────────────────────────────────────────────────────────
+
 body {
-  padding-top: 50px;
+  padding-top: 60px;
+  background-color: $bg;
+  color: $text;
+  font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
-.starter-template {
-  padding: 40px 15px;
-  text-align: center;
+a {
+  color: $primary;
+  &:hover, &:focus {
+    color: $accent;
+    text-decoration: none;
+  }
 }
 
-.table th, .table td {
-  border-top: none !important;
+h1, h2, h3, h4, h5, h6 {
+  color: $text;
+  font-weight: 700;
 }
+
+h1 { font-size: 2rem;   margin-bottom: 1rem; }
+h2 { font-size: 1.5rem; margin-bottom: 0.75rem; }
+
+p { color: $text; }
+
+// ─── Navbar ──────────────────────────────────────────────────────────────────
+
+.navbar-default {
+  background-color: hsl(260, 40%, 7%);
+  border-bottom: 1px solid $border-col;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+
+  .navbar-brand {
+    color: $primary;
+    font-weight: 700;
+    font-size: 1.2rem;
+    &:hover, &:focus { color: $accent; }
+  }
+
+  .navbar-nav > li > a {
+    color: $text-muted;
+    font-weight: 500;
+    transition: color 0.2s;
+    &:hover, &:focus {
+      color: $text;
+      background-color: $bg-secondary;
+    }
+  }
+
+  .navbar-nav > .active > a,
+  .navbar-nav > .active > a:hover,
+  .navbar-nav > .active > a:focus {
+    color: $primary;
+    background-color: rgba($primary, 0.12);
+  }
+
+  .navbar-toggle {
+    border-color: $border-col;
+    .icon-bar { background-color: $text-muted; }
+    &:hover, &:focus { background-color: $bg-secondary; }
+  }
+
+  .navbar-collapse { border-color: $border-col; }
+}
+
+// ─── Tagline ─────────────────────────────────────────────────────────────────
 
 .tagline {
+  background-color: $bg-secondary;
+  border-bottom: 1px solid $border-col;
+  color: $text-muted;
+  font-style: italic;
   p {
     margin-top: 10px;
     margin-bottom: 10px;
   }
+}
+
+// ─── Container ───────────────────────────────────────────────────────────────
+
+.container {
+  padding-top: 2rem;
+}
+
+// ─── Tables ──────────────────────────────────────────────────────────────────
+
+.table {
+  color: $text;
+  background-color: $bg-card;
+  border-radius: $radius;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+
+  th, td {
+    border-top: 1px solid $border-col !important;
+    border-color: $border-col;
+    padding: 10px 14px;
+    vertical-align: middle;
+  }
+
+  thead > tr > th {
+    color: $text-muted;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background-color: $bg-secondary;
+    border-bottom: 1px solid $border-col;
+  }
+
+  &.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.025);
+  }
+
+  &.table-bordered {
+    border: 1px solid $border-col;
+    td, th { border-color: $border-col; }
+  }
+
+  &.table-hover > tbody > tr:hover {
+    background-color: rgba($primary, 0.08);
+  }
+
+  // Rows counted toward ranking — purple glow instead of Bootstrap green
+  tbody > tr.success,
+  tbody > tr.success > td {
+    background-color: rgba($primary, 0.18) !important;
+    color: $text !important;
+  }
+  tbody > tr.success:hover,
+  tbody > tr.success:hover > td {
+    background-color: rgba($primary, 0.26) !important;
+  }
+
+  // Borderless variant used in player stats
+  &.borderless th,
+  &.borderless td {
+    border: none !important;
+  }
+}
+
+// ─── Buttons ─────────────────────────────────────────────────────────────────
+
+.btn {
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-default {
+  background-color: $bg-secondary;
+  border-color: $border-col;
+  color: $text;
+  &:hover, &:focus {
+    background-color: lighten($bg-secondary, 6%);
+    border-color: $primary;
+    color: $text;
+  }
+}
+
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+  color: #fff;
+  &:hover, &:focus {
+    background-color: lighten($primary, 8%);
+    border-color: lighten($primary, 8%);
+    color: #fff;
+  }
+}
+
+.btn-danger {
+  background-color: hsl(0, 62%, 45%);
+  border-color: hsl(0, 62%, 45%);
+  color: #fff;
+  &:hover, &:focus {
+    background-color: hsl(0, 62%, 55%);
+    border-color: hsl(0, 62%, 55%);
+    color: #fff;
+  }
+}
+
+// ─── Forms ───────────────────────────────────────────────────────────────────
+
+.form-control {
+  background-color: $bg-secondary;
+  border-color: $border-col;
+  color: $text;
+  border-radius: 0.5rem;
+  box-shadow: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus {
+    background-color: $bg-secondary;
+    border-color: $primary;
+    color: $text;
+    box-shadow: 0 0 0 3px rgba($primary, 0.25);
+  }
+}
+
+label {
+  color: $text-muted;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.form-group { margin-bottom: 1.25rem; }
+
+select option { background-color: $bg-card; }
+
+// ─── Flash messages ───────────────────────────────────────────────────────────
+
+#notice {
+  background-color: rgba($primary, 0.15);
+  border: 1px solid rgba($primary, 0.4);
+  color: lighten($primary, 20%);
+  padding: 12px 16px;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+#alert {
+  background-color: rgba(hsl(0, 62%, 50%), 0.15);
+  border: 1px solid rgba(hsl(0, 62%, 50%), 0.4);
+  color: hsl(0, 80%, 72%);
+  padding: 12px 16px;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
 }
