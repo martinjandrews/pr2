@@ -231,6 +231,12 @@ label {
 
 select option { background-color: $bg-card; }
 
+// ─── Navigation links ────────────────────────────────────────────────────────
+
+.navigation-link {
+  color: $text-muted;
+}
+
 // ─── Flash messages ───────────────────────────────────────────────────────────
 
 #notice {
