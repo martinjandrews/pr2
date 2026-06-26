@@ -150,25 +150,142 @@ def placings_from_matches(matches, feeds_winner: {}, feeds_loser: {})
   # Terminal match winners occupy positions 1..N (sorted by match code).
   placings = terminal_keys.each_with_index.map { |k, i| [i + 1, matches[k][:winner]] }
 
+  max_round = match_round.values.max
+
+  # In a standard single-elimination bracket each round r (counting from the
+  # final at 0) should contain exactly 2^r matches. When the player count is
+  # not a power of 2, some first-round slots are BYEs — those matches are
+  # never played, so they don't appear in match_round. We detect this by
+  # checking that every intermediate round follows the 2^r pattern; if so,
+  # the shortfall at the deepest round equals the number of BYE slots. Those
+  # BYE slots count toward the group position ("made the top 128", not
+  # "made the top 103").
+  bye_count_deepest = if (0...max_round).all? { |r|
+      match_round.count { |_, rv| rv == r } == (1 << r)
+    }
+    actual = match_round.count { |_, rv| rv == max_round }
+    [(1 << max_round) - actual, 0].max
+  else
+    0
+  end
+
   # Losers from the same round share a position equal to the last slot they
   # collectively occupy: "made the top N" semantics. For example, two
   # semifinal losers in a single-elimination bracket both get position 4
   # rather than 3 and 4 — there is no 3rd place.
   position = terminal_keys.size + 1
-  (0..match_round.values.max).each do |round|
+  (0..max_round).each do |round|
     round_keys   = match_round.select { |_, r| r == round }.keys.sort
     round_losers = round_keys.map { |k| matches[k][:loser] }.compact
                              .reject { |p| PLACEHOLDER_NAMES.include?(p) }
-    next if round_losers.empty?
-    group_pos = position + round_losers.size - 1
-    round_losers.each { |player| placings << [group_pos, player] }
-    position += round_losers.size
+    bye_extra = round == max_round ? bye_count_deepest : 0
+    if round_losers.any?
+      group_pos = position + round_losers.size + bye_extra - 1
+      round_losers.each { |player| placings << [group_pos, player] }
+    end
+    position += round_losers.size + bye_extra
   end
 
   placings.sort_by! { |pos, _| pos }
 
   # In double-elimination a player can lose then recover, producing duplicate
   # entries. Keep only each player's best (lowest) position.
+  seen = {}
+  placings.each_with_object([]) do |(pos, player), result|
+    next if seen[player]
+    seen[player] = true
+    result << [pos, player]
+  end
+end
+
+# ---------------------------------------------------------------------------- double elimination placer
+
+# Returns the match codes (as integers) found in a named HTML section div.
+def section_match_codes(html, section_id)
+  start_idx = html.index("id=\"#{section_id}\"")
+  return [] unless start_idx
+  other_sections = %w[draw_main draw_repechage draw_finals].reject { |s| s == section_id }
+  end_idx = other_sections.filter_map { |s| html.index("id=\"#{s}\"", start_idx + 1) }.min || html.size
+  html[start_idx, end_idx - start_idx].scan(/id="cell_(\d+)_H"/).flatten.map(&:to_i).uniq
+end
+
+# Returns { match_code (int) => draw_id (string) } from the embedded JSON.
+def parse_match_draw_ids(html)
+  json_str = html[/id="dataDraws">(\{.+?\})<\/div>/m, 1]
+  return {} unless json_str
+  JSON.parse(json_str).each_with_object({}) { |(k, v), h| h[k.to_i] = v[1] }
+rescue JSON::ParserError
+  {}
+end
+
+# Computes placings for double-elimination pages (those with id="draw_repechage").
+#
+# Repechage draws are grouped into consecutive pairs of equal match count.
+# For a pair with N total players per draw (2 × match count):
+#   - losers in the first draw of the pair  → position N × 1.5
+#   - losers in the second draw of the pair → position N
+#
+# 1st and 2nd place come from the terminal match in the finals section.
+def placings_from_double_elim(matches, html, feeds_winner)
+  match_draw_ids  = parse_match_draw_ids(html)
+  repechage_codes = section_match_codes(html, 'draw_repechage').to_set
+  finals_codes    = section_match_codes(html, 'draw_finals').to_set
+
+  placings = []
+
+  # Finals: winner = 1st, loser = 2nd from the terminal finals match.
+  finals_matches = matches.select { |code, _| finals_codes.include?(code) }
+  terminal_finals = finals_matches.select { |code, _|
+    w = feeds_winner[code]
+    w.nil? || !finals_matches.key?(w)
+  }
+  terminal_finals.each_value do |m|
+    placings << [1, m[:winner]] if m[:winner] && !PLACEHOLDER_NAMES.include?(m[:winner])
+    placings << [2, m[:loser]]  if m[:loser]  && !PLACEHOLDER_NAMES.include?(m[:loser])
+  end
+
+  # Repechage: group matches by draw_id.
+  rep_by_draw = Hash.new { |h, k| h[k] = [] }
+  matches.each do |code, m|
+    next unless repechage_codes.include?(code)
+    draw_id = match_draw_ids[code]
+    rep_by_draw[draw_id] << m if draw_id
+  end
+
+  sorted_draws = rep_by_draw.keys.sort_by(&:to_i)
+
+  # Assign positions by walking draws from best (closest to finals, highest
+  # draw_id) to worst (earliest draw, lowest draw_id), tracking a cumulative
+  # player count. Each group's position = cumulative after adding that group
+  # ("last slot" semantics: e.g. 2 players occupying slots 5-6 both get pos 6).
+  # Consecutive draws with the same match count are treated as a pair: the
+  # later draw's losers (better players) are assigned first.
+  cumulative = placings.size  # 2 after finals section (positions 1 and 2 taken)
+
+  i = sorted_draws.size - 1
+  while i >= 0
+    draw_b  = sorted_draws[i]
+    count_b = rep_by_draw[draw_b].size
+
+    if i - 1 >= 0 && rep_by_draw[sorted_draws[i - 1]].size == count_b
+      draw_a   = sorted_draws[i - 1]
+      losers_b = rep_by_draw[draw_b].filter_map { |m| m[:loser] unless m[:loser].nil? || PLACEHOLDER_NAMES.include?(m[:loser]) }
+      losers_a = rep_by_draw[draw_a].filter_map { |m| m[:loser] unless m[:loser].nil? || PLACEHOLDER_NAMES.include?(m[:loser]) }
+      cumulative += losers_b.size
+      losers_b.each { |player| placings << [cumulative, player] }
+      cumulative += losers_a.size
+      losers_a.each { |player| placings << [cumulative, player] }
+      i -= 2
+    else
+      losers = rep_by_draw[draw_b].filter_map { |m| m[:loser] unless m[:loser].nil? || PLACEHOLDER_NAMES.include?(m[:loser]) }
+      cumulative += losers.size
+      losers.each { |player| placings << [cumulative, player] }
+      i -= 1
+    end
+  end
+
+  placings.sort_by! { |pos, _| pos }
+
   seen = {}
   placings.each_with_object([]) do |(pos, player), result|
     next if seen[player]
@@ -217,7 +334,11 @@ def scrape_knockout(html)
     end
   end
 
-  placings_from_matches(matches, feeds_winner: feeds_winner, feeds_loser: feeds_loser)
+  if html.include?('id="draw_repechage"')
+    placings_from_double_elim(matches, html, feeds_winner)
+  else
+    placings_from_matches(matches, feeds_winner: feeds_winner, feeds_loser: feeds_loser)
+  end
 end
 
 # ---------------------------------------------------------------------------- individual match list parser (finals page fallback)
