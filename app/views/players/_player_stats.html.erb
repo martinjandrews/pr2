@@ -1,4 +1,11 @@
 <table class="table borderless">
+  <thead>
+    <tr>
+      <th class="text-right">Position</th>
+      <th>Tournament</th>
+      <th class="text-right">Points</th>
+    </tr>
+  </thead>
   <tbody>
   <% player.placings.sort_by { |each| each.edition.end_date }.reverse.each do |placing| %>
       <tr>
