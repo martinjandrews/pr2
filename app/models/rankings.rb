@@ -53,6 +53,18 @@ class Rankings
     end
   end
 
+  def rank_for(player)
+    sorted = player_list.sort_by { |_, v| v[:total] }.reverse
+    displayed_rank = 1
+    last_total = nil
+    sorted.each_with_index do |(p, points), i|
+      displayed_rank = i + 1 if last_total.nil? || last_total != points[:total]
+      return { rank: displayed_rank, total: points[:total] } if p == player
+      last_total = points[:total]
+    end
+    nil
+  end
+
   private
 
   def tournament_count(list, tournament)

@@ -1,5 +1,9 @@
 <h1><%= @player.name %></h1>
 
+<% if @ranking %>
+  <p>Ranked <strong>#<%= @ranking[:rank] %></strong> &mdash; <%= @ranking[:total] %> points</p>
+<% end %>
+
 <%= render 'player_stats', player: @player %>
 
 <% if current_user %>
