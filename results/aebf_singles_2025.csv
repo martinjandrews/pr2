@@ -1,88 +1,88 @@
 position,player_name
-1,Rusty Wheeler (NSW)
-2,Andy Barnett (QLD)
-4,Alex Pace (TAS)
-4,Cale Barrett (TAS)
-8,Macwin Fernandes (QLD)
-8,Travis Crawley (NSW)
-8,Ryan King (NZN)
-8,Josh Gorski (VIC)
-16,Riley James (NZN)
-16,Jeff Gluyas (SA)
-16,Morgan Evans (QLD)
-16,Matt Harmon (ACT)
-16,Simon Singleton (NZS)
-16,Mathew Franceschini (WA)
-16,Craig Stevens (QLD)
-16,Chris Beagley (NT)
-32,Rhys Godden (VIC)
-32,Joseph Rennie (ACT)
-32,Travis Martin (VIC)
-32,Tom O'Keefe (VIC)
-32,Joshua Hart (QLD)
-32,Billy McIntyre (NZN)
-32,Dane Beeton (QLD)
-32,Adam Smith (TAS)
-32,Scott McKay (NT)
-32,David Lynton (QLD)
-32,Harry Jaensch (SA)
-32,Justin Stubbs (TAS)
-32,Adam Grace (NT)
-32,Jason Tanaskovic (ACT)
-32,Peter O'Keefe (NSW)
-32,Chris Davis (NT)
-64,Simon Kleinsman (NZN)
-64,Dave Jaensch (SA)
-64,Ben Judge (WA)
-64,Brodie Conroy (WA)
-64,Brent Read (NSW)
-64,David Lyme (SA)
-64,Cooper Denmen (TAS)
-64,Colin Gamble (SA)
-64,Barry Crossey (NSW)
-64,Brodie Stubbs (TAS)
-64,Ian Hinton (SA)
-64,Phil Bailey (NZS)
-64,Justin Thursby (QLD)
-64,Mark Owens (VIC)
-64,Kobie East (SA)
-64,Rob Pendleton (QLD)
-64,Dylan Vonderwall (SA)
-64,Graham O'Connell (ACT)
-64,Matthew Gartrell (NSW)
-64,Shane Breckon (NZS)
-64,Greg Segal (NSW)
-64,Matthew Diatschenko (NT)
-64,Callan Bissett (TAS)
-64,Mick Norton (NSW)
-64,Anthony Gempton (NZN)
-64,Simon Gray (WA)
-64,Dylan Moyes (WA)
-64,John Saundercock (NZS)
-64,Deon Rawlings (NZN)
-64,Decoda Cook (VIC)
-64,Kain Stone (QLD)
-64,Nick Lynch (SA)
-128,Sam Crunden-Peck (VIC)
-128,Matt Pisano (NSW)
-128,Shane Smith (ACT)
-128,Tony McMullien (NZS)
-128,Steve Argus (NZN)
-128,Temujin Dixon (VIC)
-128,Jason Doyle (WA)
-128,Charles Huang (ACT)
-128,Patrick Cowen (NZS)
-128,Calum Mackay (WA)
-128,Josh Johnstone (TAS)
-128,Jahan Pitcorn (NZS)
-128,Jared Rawlings (NZN)
-128,Nathan Appleton (QLD)
-128,Brodi Henville (WA)
-128,Scott Coburn (NT)
-128,Jordan Boyd (NSW)
-128,William Keogh (ACT)
-128,Micky Lennon (NSW)
-128,Tristan Matheson (NZN)
-128,Marchi Hami (WA)
-128,Troy George (NT)
-128,Kenny Nicol (ACT)
+1,Rusty Wheeler
+2,Andy Barnett
+4,Alex Pace
+4,Cale Barrett
+8,Macwin Fernandes
+8,Travis Crawley
+8,Ryan King
+8,Josh Gorski
+16,Riley James
+16,Jeff Gluyas
+16,Morgan Evans
+16,Matt Harmon
+16,Simon Singleton
+16,Mathew Franceschini
+16,Craig Stevens
+16,Chris Beagley
+32,Rhys Godden
+32,Joseph Rennie
+32,Travis Martin
+32,Tom O'Keefe
+32,Joshua Hart
+32,Billy McIntyre
+32,Dane Beeton
+32,Adam Smith
+32,Scott McKay
+32,David Lynton
+32,Harry Jaensch
+32,Justin Stubbs
+32,Adam Grace
+32,Jason Tanaskovic
+32,Peter O'Keefe
+32,Chris Davis
+64,Simon Kleinsman
+64,Dave Jaensch
+64,Ben Judge
+64,Brodie Conroy
+64,Brent Read
+64,David Lyme
+64,Cooper Denmen
+64,Colin Gamble
+64,Barry Crossey
+64,Brodie Stubbs
+64,Ian Hinton
+64,Phil Bailey
+64,Justin Thursby
+64,Mark Owens
+64,Kobie East
+64,Robert Pendleton
+64,Dylan Vonderwall
+64,Graham O'Connell
+64,Matthew Gartrell
+64,Shane Breckon
+64,Greg Segal
+64,Matthew Diatschenko
+64,Callan Bissett
+64,Mick Norton
+64,Anthony Gempton
+64,Simon Gray
+64,Dylan Moyes
+64,John Saundercock
+64,Deon Rawlings
+64,Decoda Cook
+64,Kain Stone
+64,Nick Lynch
+128,Sam Crunden-Peck
+128,Matt Pisano
+128,Shane Smith
+128,Tony McMullien
+128,Steve Argus
+128,Temujin Dixon
+128,Jason Doyle
+128,Charles Huang
+128,Patrick Cowen
+128,Calum Mackay
+128,Josh Johnstone
+128,Jahan Pitcorn
+128,Jared Rawlings
+128,Nathan Appleton
+128,Brodi Henville
+128,Scott Coburn
+128,Jordan Boyd
+128,William Keogh
+128,Micky Lennon
+128,Tristan Matheson
+128,Marchi Hami
+128,Troy George
+128,Kenny Nicol
