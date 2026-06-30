@@ -12,7 +12,15 @@
   <tbody>
   <% @edition.placings.sort_by{|each| each.position}.each do |placing| %>
       <tr>
-        <td class="text-center"><%= placing.name %></td>
+        <td class="text-center">
+          <% if placing.position == 1 %>
+            <span class="trophy-badge trophy-badge--winner">🏆 1</span>
+          <% elsif placing.position == 2 %>
+            <span class="trophy-badge trophy-badge--runner-up">🏆 2</span>
+          <% else %>
+            <%= placing.name %>
+          <% end %>
+        </td>
         <td><%= link_to placing.player.name, placing.player, :class => "navigation-link" %></td>
         <% if current_user %>
             <td><%= link_to 'Edit', edit_placing_path(placing) %></td>

@@ -10,7 +10,15 @@
   <% used = local_assigns.fetch(:used_placings, nil) %>
   <% player.placings.sort_by { |each| each.edition.end_date }.reverse.each do |placing| %>
       <tr class="<%= 'success' if used&.include?(placing) %>">
-        <td width="100px" class="text-right"><%= placing.name %></td>
+        <td width="100px" class="text-right">
+          <% if placing.position == 1 %>
+            <span class="trophy-badge trophy-badge--winner">🏆 1</span>
+          <% elsif placing.position == 2 %>
+            <span class="trophy-badge trophy-badge--runner-up">🏆 2</span>
+          <% else %>
+            <%= placing.name %>
+          <% end %>
+        </td>
         <td><%= link_to placing.edition.name, placing.edition, :class => "navigation-link" %></td>
         <td class="text-right"><%= Rankings.points_for(placing) %> pts</td>
       </tr>

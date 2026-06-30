@@ -237,6 +237,15 @@ select option { background-color: $bg-card; }
   color: $text-muted;
 }
 
+// ─── Trophy badge ─────────────────────────────────────────────────────────────
+
+.trophy-badge {
+  font-weight: 700;
+  white-space: nowrap;
+  &--winner    { color: $accent; }
+  &--runner-up { color: hsl(220, 10%, 72%); }
+}
+
 // ─── Flash messages ───────────────────────────────────────────────────────────
 
 #notice {
