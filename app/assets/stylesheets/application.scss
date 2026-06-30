@@ -83,19 +83,6 @@ p { color: $text; }
   .navbar-collapse { border-color: $border-col; }
 }
 
-// ─── Tagline ─────────────────────────────────────────────────────────────────
-
-.tagline {
-  background-color: $bg-secondary;
-  border-bottom: 1px solid $border-col;
-  color: $text-muted;
-  font-style: italic;
-  p {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-}
-
 // ─── Container ───────────────────────────────────────────────────────────────
 
 .container {
