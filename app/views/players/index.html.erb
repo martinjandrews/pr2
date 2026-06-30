@@ -17,7 +17,7 @@
           <tbody>
           <% player_slice.each do |player| %>
               <tr>
-                <td><%= link_to player.name, player %></td>
+                <td><%= link_to player.name, player, :class => "navigation-link" %></td>
                 <% if current_user %>
                     <td><%= link_to 'Edit', edit_player_path(player) %></td>
                     <td><%= link_to 'Destroy', player, method: :delete, data: {confirm: 'Are you sure?'} %></td>

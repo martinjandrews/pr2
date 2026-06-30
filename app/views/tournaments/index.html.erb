@@ -14,7 +14,7 @@
       <tbody>
       <% @tournaments.sort_by { |each| each.name }.each do |tournament| %>
           <tr>
-            <td><%= link_to tournament.name, tournament %></td>
+            <td><%= link_to tournament.name, tournament, :class => "navigation-link" %></td>
             <% if current_user %>
                 <td><%= link_to 'Edit', edit_tournament_path(tournament) %></td>
                 <td><%= link_to 'Destroy', tournament, method: :delete, data: {confirm: 'Are you sure?'} %></td>
@@ -40,10 +40,10 @@
       <tbody>
       <% @last_year_editions.each do |edition| %>
           <tr>
-            <td><%= link_to edition.name, edition %></td>
-            <td class="text-right"><%= link_to edition.winner.name, edition.winner if edition.winner %></td>
+            <td><%= link_to edition.name, edition, :class => "navigation-link" %></td>
+            <td class="text-right"><%= link_to edition.winner.name, edition.winner, :class => "navigation-link" if edition.winner %></td>
             <td class="text-center">def</td>
-            <td><%= link_to edition.runner_up.name, edition.runner_up if edition.runner_up %></td>
+            <td><%= link_to edition.runner_up.name, edition.runner_up, :class => "navigation-link" if edition.runner_up %></td>
           </tr>
       <% end %>
       </tbody>

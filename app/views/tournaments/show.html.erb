@@ -23,7 +23,7 @@
   <tbody>
   <% @tournament.editions.sort_by{|each| each.year}.reverse.each do |edition| %>
       <tr>
-        <td><%= link_to edition.name, edition %></td>
+        <td><%= link_to edition.name, edition, :class => "navigation-link" %></td>
         <td><%= edition.start_date %></td>
         <td><%= edition.end_date %></td>
         <td><%= edition.multiplier %></td>
