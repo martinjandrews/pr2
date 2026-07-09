@@ -59,6 +59,10 @@ end
 
 PLACEHOLDER_NAMES = %w[BYE TBD].to_set
 
+def clean_name(name)
+  name.gsub(/\s*\([A-Z]{2,3}\)\s*$/, '')
+end
+
 # Parses the bracket feeds from the embedded dataDraws JSON blob.
 # Returns [feeds_winner, feeds_loser] where each is a hash of
 # match_code => next_match_code. Returns [{}, {}] if feeds are absent or
@@ -299,7 +303,7 @@ end
 def scrape_knockout(html)
   players = {}
   html.scan(/<td id="(cell_\d+_[HA])"[^>]*class="player[^"]*"[^>]*>(.*?)<\/td>/m) do |cell_id, cell_html|
-    players[cell_id] = cell_html.gsub(/<[^>]+>/, '').strip
+    players[cell_id] = clean_name(cell_html.gsub(/<[^>]+>/, '').strip)
   end
 
   scores = {}
@@ -376,8 +380,8 @@ def scrape_finals_individual(html)
     away_score = spans[1][/\((\d+)\)/, 1]&.to_i || spans[1][/\A\s*(\d+)\s*\z/, 1]&.to_i
     next unless home_score && away_score
 
-    home = home_html.gsub(/<[^>]+>/, '').strip
-    away = away_html.gsub(/<[^>]+>/, '').strip
+    home = clean_name(home_html.gsub(/<[^>]+>/, '').strip)
+    away = clean_name(away_html.gsub(/<[^>]+>/, '').strip)
     next if home.empty? || away.empty?
 
     raw_matches << { pos: pos, home: home, away: away,
