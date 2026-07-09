@@ -25,6 +25,15 @@ RESULTS_DIR = File.join(SCRIPT_DIR, 'results')
 DEFAULT_URL_FILE = File.join(SCRIPT_DIR, 'urls-grand-slams.csv')
 FileUtils.mkdir_p(RESULTS_DIR)
 
+ALIASES_FILE = File.join(SCRIPT_DIR, 'aliases.csv')
+ALIASES = if File.exist?(ALIASES_FILE)
+  CSV.read(ALIASES_FILE, headers: true).each_with_object({}) do |row, h|
+    h[row['alias']] = row['canonical']
+  end
+else
+  {}
+end
+
 USAGE = "Usage: ruby scrape_grand_slams.rb [--file <urls.csv>]\n" \
         "       ruby scrape_grand_slams.rb <url> [output.csv]\n" \
         "Defaults to urls-grand-slams.csv in the same directory as this script."
@@ -60,7 +69,8 @@ end
 PLACEHOLDER_NAMES = %w[BYE TBD].to_set
 
 def clean_name(name)
-  name.gsub(/\s*\([A-Z]{2,3}\)\s*$/, '')
+  name = name.gsub(/\s*\([A-Z]{2,3}\)\s*$/, '')
+  ALIASES.fetch(name, name)
 end
 
 # Parses the bracket feeds from the embedded dataDraws JSON blob.
