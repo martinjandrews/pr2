@@ -19,6 +19,7 @@ require 'csv'
 require 'date'
 require 'fileutils'
 require 'json'
+require 'set'
 
 SCRIPT_DIR  = __dir__
 RESULTS_DIR = File.join(SCRIPT_DIR, 'results')
@@ -268,13 +269,24 @@ def placings_from_double_elim(matches, html, feeds_winner)
 
   sorted_draws = rep_by_draw.keys.sort_by(&:to_i)
 
+  # Count players who won a completed match but whose next match hasn't been
+  # completed yet. These players are still active in the tournament and will all
+  # finish above the repechage losers we're about to assign positions to.
+  still_active = Set.new
+  matches.each do |code, m|
+    next_code = feeds_winner[code]
+    next if next_code && matches.key?(next_code)
+    name = m[:winner]
+    still_active << name if name && !PLACEHOLDER_NAMES.include?(name)
+  end
+
   # Assign positions by walking draws from best (closest to finals, highest
   # draw_id) to worst (earliest draw, lowest draw_id), tracking a cumulative
   # player count. Each group's position = cumulative after adding that group
   # ("last slot" semantics: e.g. 2 players occupying slots 5-6 both get pos 6).
   # Consecutive draws with the same match count are treated as a pair: the
   # later draw's losers (better players) are assigned first.
-  cumulative = placings.size  # 2 after finals section (positions 1 and 2 taken)
+  cumulative = [placings.size, still_active.size].max
 
   i = sorted_draws.size - 1
   while i >= 0
