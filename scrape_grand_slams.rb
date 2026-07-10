@@ -116,6 +116,14 @@ def placings_from_matches(matches, feeds_winner: {}, feeds_loser: {})
   fed_by = Hash.new { |h, k| h[k] = [] }
 
   # Infer each player's next match from their own sequence of match codes.
+  # `matches` is keyed by an internal match id assigned by the site, which
+  # usually increases with round order but isn't guaranteed to — pages with
+  # a manually patched-in final stage (e.g. a "Final 8" bracket added after
+  # the fact) can have later rounds with lower ids than earlier ones. What
+  # *is* reliable is that `matches` was built by scanning the page top to
+  # bottom, so its hash-insertion order already reflects true document
+  # (and thus bracket) order; relying on that instead of sorting by id
+  # avoids being misled by out-of-sequence ids.
   # Exclude BYE/TBD — their chains across many bracket slots corrupt the
   # inferred feeds_into graph. Used as a fallback wherever explicit feed data
   # is missing or absent entirely.
@@ -126,7 +134,7 @@ def placings_from_matches(matches, feeds_winner: {}, feeds_loser: {})
   end
   inferred_feeds = {}
   player_keys.each_value do |keys|
-    keys.sort.each_cons(2) { |a, b| inferred_feeds[a] ||= b }
+    keys.each_cons(2) { |a, b| inferred_feeds[a] ||= b }
   end
 
   if feeds_winner.any?
