@@ -272,8 +272,12 @@ def placings_from_double_elim(matches, html, feeds_winner)
   # Count players who won a completed match but whose next match hasn't been
   # completed yet. These players are still active in the tournament and will all
   # finish above the repechage losers we're about to assign positions to.
+  # Finals matches are excluded: their winners are already placed above via
+  # terminal_finals, even when an optional decider (e.g. a bracket-reset match
+  # only needed if the repechage finalist wins) was never played.
   still_active = Set.new
   matches.each do |code, m|
+    next if finals_codes.include?(code)
     next_code = feeds_winner[code]
     next if next_code && matches.key?(next_code)
     name = m[:winner]
@@ -328,9 +332,12 @@ def scrape_knockout(html)
     players[cell_id] = clean_name(cell_html.gsub(/<[^>]+>/, '').strip)
   end
 
+  # Score cells are usually numeric, but a forfeited match shows a non-numeric
+  # marker (e.g. "FFT") on the conceding side while the other side keeps its
+  # numeric score.
   scores = {}
-  html.scan(/<td[^>]*class="score new[^"]*"[^>]*data-id="(cell_\d+_[HA])"[^>]*>(\d+)<\/td>/) do |cell_id, score|
-    scores[cell_id] = score.to_i
+  html.scan(/<td[^>]*class="score new[^"]*"[^>]*data-id="(cell_\d+_[HA])"[^>]*>([^<]*)<\/td>/) do |cell_id, score|
+    scores[cell_id] = score
   end
 
   # Extract per-match dates from the embedded dataDraws JSON blob.
@@ -350,10 +357,14 @@ def scrape_knockout(html)
     a_id = "cell_#{code}_A"
     next unless players[h_id] && players[a_id]
     next unless scores[h_id] && scores[a_id]
-    next if scores[h_id] == 0 && scores[a_id] == 0
     next if players[h_id].empty? || players[a_id].empty?
 
-    matches[code.to_i] = if scores[h_id] > scores[a_id]
+    h_score = scores[h_id][/\A\d+\z/]&.to_i
+    a_score = scores[a_id][/\A\d+\z/]&.to_i
+    next if h_score.nil? && a_score.nil?
+    next if h_score == 0 && a_score == 0
+
+    matches[code.to_i] = if h_score && (a_score.nil? || h_score > a_score)
       { winner: players[h_id], loser: players[a_id], date: match_dates[code.to_i] }
     else
       { winner: players[a_id], loser: players[h_id], date: match_dates[code.to_i] }
