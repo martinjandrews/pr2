@@ -20,7 +20,7 @@ results/kings_cup_2025.csv,Kings Cup,2025,2025-06-08,2025-06-09,2.0
 results/kings_cup_2026.csv,Kings Cup,2026,2026-06-07,2026-06-08,2.0
 
 # Killer Crossover
-results/killer_crossover_2022.csv,Killer Crossover,2022,2022-08-12,2022-08-12,2.0
+results/killer_crossover_2022.csv,Killer Crossover,2022,2022-08-12,2022-08-14,2.0
 results/killer_crossover_2023.csv,Killer Crossover,2023,2023-08-12,2023-08-12,2.0
 results/killer_crossover_2024.csv,Killer Crossover,2024,2024-08-09,2024-08-11,2.0
 results/killer_crossover_2025.csv,Killer Crossover,2025,2025-08-08,2025-08-08,2.0
@@ -33,7 +33,7 @@ results/aebf_singles_2024.csv,AEBF Australian Singles,2024,2024-10-19,2024-10-25
 results/aebf_singles_2025.csv,AEBF Australian Singles,2025,2025-11-15,2025-11-21,2.0
 
 # Slate Pro
-results/slate_pro_2025.csv,Slate Pro,2025,2025-07-06,2025-07-04,2.0
+results/slate_pro_2025.csv,Slate Pro,2025,2025-07-04,2025-07-06,2.0
 results/slate_pro_2026.csv,Slate Pro,2026,2026-07-03,2026-07-05,2.0
 
 
@@ -42,40 +42,40 @@ results/slate_pro_2026.csv,Slate Pro,2026,2026-07-03,2026-07-05,2.0
 ##################################################
 
 # Ready's Xmas Cup
-results/readys_xmas_cup_2021.csv,Ready's Xmas Cup,2021,2021-12-10,2021-12-12,1.5
-results/readys_xmas_cup_2022.csv,Ready's Xmas Cup,2022,2022-12-10,2022-12-12,1.5
-results/readys_xmas_cup_2023.csv,Ready's Xmas Cup,2023,2023-12-10,2023-12-12,1.5
-results/readys_xmas_cup_2024.csv,Ready's Xmas Cup,2024,2024-12-10,2024-12-12,1.5
-results/readys_xmas_cup_2025.csv,Ready's Xmas Cup,2026,2025-12-10,2025-12-12,1.5
+results/readys_xmas_cup_2021.csv,Ready's Xmas Cup,2021,2021-12-11,2021-12-12,1.5
+results/readys_xmas_cup_2022.csv,Ready's Xmas Cup,2022,2022-12-16,2022-12-18,1.5
+results/readys_xmas_cup_2023.csv,Ready's Xmas Cup,2023,2023-12-17,2023-12-17,1.5
+results/readys_xmas_cup_2024.csv,Ready's Xmas Cup,2024,2024-12-15,2024-12-15,1.5
+results/readys_xmas_cup_2025.csv,Ready's Xmas Cup,2026,2025-12-14,2025-12-14,1.5
 
 # Joybell Cup
-results/joybell_cup_2025.csv,Joybell Cup,2025,2025-04-01,2025-04-02,1.5
-results/joybell_cup_2026.csv,Joybell Cup,2026,2026-04-01,2026-04-02,1.5
+results/joybell_cup_2025.csv,Joybell Cup,2025,2025-01-26,2025-01-26,1.5
+results/joybell_cup_2026.csv,Joybell Cup,2026,2026-01-25,2026-01-25,1.5
 
 ##################################################
 # Minors
 ##################################################
 
 # Albury Open
-results/albury_open_2024.csv,Albury Open,2024,2024-03-01,2024-03-01,1.0
-results/albury_open_2025.csv,Albury Open,2025,2025-03-01,2025-03-01,1.0
-results/albury_open_2026.csv,Albury Open,2026,2026-03-01,2026-03-01,1.0
+results/albury_open_2024.csv,Albury Open,2024,2024-03-10,2024-03-10,1.0
+results/albury_open_2025.csv,Albury Open,2025,2025-03-09,2025-03-09,1.0
+results/albury_open_2026.csv,Albury Open,2026,2026-03-08,2026-03-08,1.0
 
 # Darwin Open
-results/darwin_open_2021.csv,Darwin Open,2021,2021-05-01,2021-05-02,1.0
-results/darwin_open_2022.csv,Darwin Open,2022,2022-05-01,2022-05-02,1.0
-results/darwin_open_2023.csv,Darwin Open,2023,2023-05-01,2023-05-02,1.0
-results/darwin_open_2024.csv,Darwin Open,2024,2024-05-01,2024-05-02,1.0
-results/darwin_open_2025.csv,Darwin Open,2025,2025-05-01,2025-05-02,1.0
-results/darwin_open_2026.csv,Darwin Open,2026,2026-05-01,2026-05-02,1.0
+results/darwin_open_2021.csv,Darwin Open,2021,2021-05-02,2021-05-02,1.0
+results/darwin_open_2022.csv,Darwin Open,2022,2022-05-01,2022-05-01,1.0
+results/darwin_open_2023.csv,Darwin Open,2023,2023-04-30,2023-04-30,1.0
+results/darwin_open_2024.csv,Darwin Open,2024,2024-05-05,2024-05-05,1.0
+results/darwin_open_2025.csv,Darwin Open,2025,2025-05-04,2025-05-05,1.0
+results/darwin_open_2026.csv,Darwin Open,2026,2026-05-03,2026-05-04,1.0
 
 # Tatts Hotel Classic
-results/tatts_hotel_classic_2023.csv,Tatts Hotel Classic,2023,2023-07-01,2023-07-03,1.0
-results/tatts_hotel_classic_2024.csv,Tatts Hotel Classic,2024,2024-07-01,2024-07-03,1.0
-results/tatts_hotel_classic_2025.csv,Tatts Hotel Classic,2025,2025-07-01,2025-07-03,1.0
-results/tatts_hotel_classic_2026.csv,Tatts Hotel Classic,2026,2026-07-01,2026-07-03,1.0
+results/tatts_hotel_classic_2023.csv,Tatts Hotel Classic,2023,2023-01-14,2023-01-15,1.0
+results/tatts_hotel_classic_2024.csv,Tatts Hotel Classic,2024,2024-01-20,2024-01-21,1.0
+results/tatts_hotel_classic_2025.csv,Tatts Hotel Classic,2025,2025-01-11,2025-01-12,1.0
+results/tatts_hotel_classic_2026.csv,Tatts Hotel Classic,2026,2026-01-17,2026-01-18,1.0
 
 # Townsville Open
-results/townsville_open_2024.csv,Townsville Open,2024,2024-08-01,2024-08-02,1.0
-results/townsville_open_2025.csv,Townsville Open,2025,2025-08-01,2025-08-02,1.0
-results/townsville_open_2026.csv,Townsville Open,2026,2026-08-01,2026-08-02,1.0
+results/townsville_open_2024.csv,Townsville Open,2024,2024-05-19,2024-05-19,1.0
+results/townsville_open_2025.csv,Townsville Open,2025,2025-05-18,2025-05-18,1.0
+results/townsville_open_2026.csv,Townsville Open,2026,2026-05-17,2026-05-17,1.0
