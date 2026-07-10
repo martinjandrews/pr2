@@ -496,16 +496,36 @@ else
 end
 
 # ---------------------------------------------------------------------------- main loop
+#
+# Multiple URLs sharing the same output_prefix (and therefore the same output
+# file) have their placings merged rather than the last URL's results
+# overwriting the earlier ones. When a player appears in more than one source
+# (e.g. duplicated across a main draw and a finals draw), only their best
+# (lowest) position is kept.
 
-urls_with_outputs.each do |url, output|
+urls_by_output = urls_with_outputs.each_with_object({}) do |(url, output), h|
+  (h[output] ||= []) << url
+end
+
+urls_by_output.each do |output, urls|
   puts "\n#{output}"
-  puts "  Fetching: #{url}"
 
-  placings = scrape_placings(url)
+  combined = urls.flat_map do |url|
+    puts "  Fetching: #{url}"
+    scrape_placings(url)
+  end
 
-  if placings.empty?
+  if combined.empty?
     warn "  No placings found — skipping"
     next
+  end
+
+  combined.sort_by! { |pos, _| pos }
+  seen = {}
+  placings = combined.each_with_object([]) do |(pos, player), result|
+    next if seen[player]
+    seen[player] = true
+    result << [pos, player]
   end
 
   puts "  #{placings.size} placings found"
