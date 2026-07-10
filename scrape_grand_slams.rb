@@ -105,20 +105,36 @@ end
 # they are used directly to build the backward-edge graph and detect terminal
 # matches. This handles multi-draw formats (e.g. double-elimination with
 # separate winners/losers bracket draws) where the single-final heuristic
-# fails. Falls back to inferring topology from player consecutive match codes
-# when the feeds maps are empty (single-draw tournaments).
+# fails. Some pages omit explicit feed data for a subset of matches (often
+# the last few rounds) even though most of the page has it; those matches
+# fall back to inferring the next match from the winner's own sequence of
+# match codes. Falls back entirely to that inference when the feeds maps are
+# empty (single-draw tournaments with no feed data at all).
 def placings_from_matches(matches, feeds_winner: {}, feeds_loser: {})
   return [] if matches.empty?
 
   fed_by = Hash.new { |h, k| h[k] = [] }
 
+  # Infer each player's next match from their own sequence of match codes.
+  # Exclude BYE/TBD — their chains across many bracket slots corrupt the
+  # inferred feeds_into graph. Used as a fallback wherever explicit feed data
+  # is missing or absent entirely.
+  player_keys = Hash.new { |h, k| h[k] = [] }
+  matches.each do |key, m|
+    player_keys[m[:winner]] << key unless PLACEHOLDER_NAMES.include?(m[:winner])
+    player_keys[m[:loser]]  << key unless PLACEHOLDER_NAMES.include?(m[:loser])
+  end
+  inferred_feeds = {}
+  player_keys.each_value do |keys|
+    keys.sort.each_cons(2) { |a, b| inferred_feeds[a] ||= b }
+  end
+
   if feeds_winner.any?
-    # Explicit feeds from dataDraws JSON: build backward edges and find
-    # terminal matches (completed matches whose winner doesn't advance to
-    # another completed match on this page).
-    feeds_winner.each do |from, to|
-      next unless matches.key?(from) && matches.key?(to)
-      fed_by[to] << from
+    matches.each_key do |from|
+      to = feeds_winner[from]
+      to = nil unless to && matches.key?(to)
+      to ||= inferred_feeds[from]
+      fed_by[to] << from if to && matches.key?(to)
     end
     feeds_loser.each do |from, to|
       next unless matches.key?(from) && matches.key?(to)
@@ -126,21 +142,11 @@ def placings_from_matches(matches, feeds_winner: {}, feeds_loser: {})
     end
     terminal_keys = matches.keys.select { |c|
       w = feeds_winner[c]
+      w = nil unless w && matches.key?(w)
+      w ||= inferred_feeds[c]
       w.nil? || !matches.key?(w)
     }.sort
   else
-    # Fallback: infer topology from each player's sequence of match codes.
-    # Exclude BYE/TBD — their chains across many bracket slots corrupt the
-    # inferred feeds_into graph.
-    player_keys = Hash.new { |h, k| h[k] = [] }
-    matches.each do |key, m|
-      player_keys[m[:winner]] << key unless PLACEHOLDER_NAMES.include?(m[:winner])
-      player_keys[m[:loser]]  << key unless PLACEHOLDER_NAMES.include?(m[:loser])
-    end
-    inferred_feeds = {}
-    player_keys.each_value do |keys|
-      keys.sort.each_cons(2) { |a, b| inferred_feeds[a] ||= b }
-    end
     inferred_feeds.each { |from, to| fed_by[to] << from }
 
     # Prefer the highest-coded match on the latest date (handles multi-grade
