@@ -24,6 +24,4 @@ test:
 
 production:
   <<: *default
-  database: poolrankings_production
-  username: poolrankings
-  password: <%= ENV['POOLRANKINGS_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
