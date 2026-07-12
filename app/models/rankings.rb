@@ -13,7 +13,7 @@ class Rankings
     48 => 5
   }.freeze
 
-  TOP_RESULTS_PER_SLOT = 4
+  TOP_RESULTS_PER_SLOT = 3
 
   def initialize
     @last_year_editions = []
