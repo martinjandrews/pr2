@@ -8,7 +8,7 @@
 file,tournament,year,start_date,end_date,multiplier
 
 ##################################################
-# Super Grand Slams
+# Tier 1: Major Slams
 ##################################################
 
 # Kings Cup
@@ -30,7 +30,7 @@ results/slate_pro_2026.csv,Slate Pro,2026,2026-07-03,2026-07-05,2.0
 
 
 ##################################################
-# Grand Slams
+# Tier 2: Minor Slams
 ##################################################
 
 # Killer Crossover
@@ -48,7 +48,7 @@ results/aebf_singles_2025.csv,AEBF Australian Singles,2025,2025-11-15,2025-11-21
 
 
 ##################################################
-# Majors
+# Tier 3: Major Events
 ##################################################
 
 # Joybell Cup
@@ -66,9 +66,15 @@ results/tatts_hotel_classic_2024.csv,Tatts Hotel Classic,2024,2024-01-20,2024-01
 results/tatts_hotel_classic_2025.csv,Tatts Hotel Classic,2025,2025-01-11,2025-01-12,1.0
 results/tatts_hotel_classic_2026.csv,Tatts Hotel Classic,2026,2026-01-17,2026-01-18,1.0
 
+# Geelong Open
+results/geelong_open_2026.csv,Geelong Open,2026,2023-01-14,2023-01-15,1.0
+
+# NT Open
+results/nt_open_2025.csv,NT Open,2025,2025-01-26,2025-01-26,1.0
+results/nt_open_2026.csv,NT Open,2026,2026-01-25,2026-01-25,1.0
 
 ##################################################
-# Minors
+# Tier 4: Minor Events
 ##################################################
 
 # Townsville Open

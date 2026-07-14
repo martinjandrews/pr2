@@ -6,9 +6,9 @@
 # output file (each player's best position wins) instead of overwriting.
 url,output_prefix
 
-################################################################################
-# GRAND SLAMS
-################################################################################
+##################################################
+# Tier 1: Major Slams
+##################################################
 
 # Kings Cup
 https://www.poolstat.net.au/acteba/knockout/2718/2021-kings-cup,kings_cup_2021
@@ -17,6 +17,22 @@ https://www.poolstat.net.au/ACTEBA/knockout/4268/2023-kings-cup-open-grade,kings
 https://www.poolstat.net.au/ACTEBA/knockout/5387/2024-kings-cup,kings_cup_2024
 https://www.poolstat.net.au/ACTEBA/knockout/6707/2025-kings-cup,kings_cup_2025
 https://www.poolstat.net.au/acteba/knockout/8348/2026-kings-cup,kings_cup_2026
+
+# Slate Pro
+https://www.poolstat.net.au/slate/knockout/6837/slate-pro-championship,slate_pro_2025
+https://www.poolstat.net.au/slate/knockout/6838/2025-slate-pro-championship-finals,slate_pro_2025
+https://www.poolstat.net.au/slate/knockout/8456/2026-slate-pro-championship,slate_pro_2026
+https://www.poolstat.net.au/slate/knockout/8484/2026-slate-pro-championship-finals,slate_pro_2026
+
+# Gippy Cup Pro
+
+
+# Big Guns
+
+
+################################################################################
+# Tier 2: Minor Slams
+################################################################################
 
 # Killer Crossover
 https://www.poolstat.net.au/killerx/knockout/3554/2022-killer-crossover-open-grade,killer_crossover_2022
@@ -30,21 +46,42 @@ https://www.poolstat.net.au/AEBF/knockout/4625/2023-australian-singles-open-grad
 https://www.poolstat.net.au/AEBF/knockout/5800/2024-australian-singles-open-grade,aebf_singles_2024
 https://www.poolstat.net.au/AEBF/knockout/7328/2025-australian-singles-open-grade,aebf_singles_2025
 
-# Slate Pro
-https://www.poolstat.net.au/slate/knockout/6837/slate-pro-championship,slate_pro_2025
-https://www.poolstat.net.au/slate/knockout/6838/2025-slate-pro-championship-finals,slate_pro_2025
-https://www.poolstat.net.au/slate/knockout/8456/2026-slate-pro-championship,slate_pro_2026
-https://www.poolstat.net.au/slate/knockout/8484/2026-slate-pro-championship-finals,slate_pro_2026
 
-# Big Guns
+##################################################
+# Tier 3: Major Events
+##################################################
+
+# Joybell Cup
+https://www.poolstat.net.au/seba/knockout/6085/joybell-cup,joybell_cup_2025
+https://www.poolstat.net.au/seba/knockout/7584/joybell-cup-2026-open-grade,joybell_cup_2026
+
+# Albury Open
+https://www.poolstat.net.au/poolvic/knockout/4888/auburywodonga-open,albury_open_2024
+https://www.poolstat.net.au/poolvic/knockout/6333/albury-open-open-grade,albury_open_2025
+https://www.poolstat.net.au/poolvic/knockout/7818/albury-open-grade,albury_open_2026
+
+# Tatts Hotel Classic
+https://www.poolstat.net.au/tatts/knockout/3847/tatts-hotel-classic,tatts_hotel_classic_2023
+https://www.poolstat.net.au/tatts/knockout/4892/tatts-hotel-classic,tatts_hotel_classic_2024
+https://www.poolstat.net.au/tatts/knockout/6089/tatts-hotel-classic,tatts_hotel_classic_2025
+https://www.poolstat.net.au/tatts/knockout/7591/tatts-hotel-classic,tatts_hotel_classic_2026
+
+# Geelong Open
+https://www.poolstat.net.au/geelong/knockout/7759/geelong-open-singles-championship,geelong_open_2026
+
+# NT Open
+https://www.poolstat.net.au/nteba/knockout/6179/2025-nt-open-open-grade,nt_open_2025
+https://www.poolstat.net.au/nteba/knockout/7633/2026-nt-open-open-grade,nt_open_2026
 
 
-# Gippy Cup Pro
+##################################################
+# Tier 4: Minor Events
+##################################################
 
-
-################################################################################
-# Other Events
-################################################################################
+# Townsville Open
+https://www.poolstat.net.au/towns/knockout/5344/2024-townsville-open-ko-stage-mixed-grade,townsville_open_2024
+https://www.poolstat.net.au/towns/knockout/6619/townsville-open-sun-pm-top-32-grade,townsville_open_2025
+https://www.poolstat.net.au/towns/knockout/8249/townsville-open-main-32-mixed-grade,townsville_open_2026
 
 # Darwin Open
 https://www.poolstat.net.au/darwin/knockout/2567/2021-darwin-open,darwin_open_2021
@@ -56,41 +93,18 @@ https://www.poolstat.net.au/darwin/knockout/6549/2025-darwin-open-finals-open-gr
 https://www.poolstat.net.au/darwin/knockout/8166/2026-darwin-open-open-grade,darwin_open_2026
 https://www.poolstat.net.au/darwin/knockout/8167/2026-darwin-open-finals-open-grade,darwin_open_2026
 
+# ANZAC (VIC)
+# 2026 created in a CSV file from image
+
+# Good Friday (VIC)
+# 2026 created in a CSV file from image
+
 # Ready's Xmas Cup
 https://www.poolstat.net.au/ready/knockout/2999/readys-christmas-cup-2021,readys_xmas_cup_2021
 https://www.poolstat.net.au/ready/knockout/3789/readys-christmas-cup-2022,readys_xmas_cup_2022
 https://www.poolstat.net.au/ready/knockout/4810/readys-christmas-cup-2023,readys_xmas_cup_2023
 https://www.poolstat.net.au/ready/knockout/6039/readys-xmas-cup-2024-main-draw,readys_xmas_cup_2024
 https://www.poolstat.net.au/ready/knockout/7443/readys-xmas-cup-2025-main-draw-open-grade,readys_xmas_cup_2025
-
-# Tatts Hotel Classic
-https://www.poolstat.net.au/tatts/knockout/3847/tatts-hotel-classic,tatts_hotel_classic_2023
-https://www.poolstat.net.au/tatts/knockout/4892/tatts-hotel-classic,tatts_hotel_classic_2024
-https://www.poolstat.net.au/tatts/knockout/6089/tatts-hotel-classic,tatts_hotel_classic_2025
-https://www.poolstat.net.au/tatts/knockout/7591/tatts-hotel-classic,tatts_hotel_classic_2026
-
-# Townsville Open
-https://www.poolstat.net.au/towns/knockout/5344/2024-townsville-open-ko-stage-mixed-grade,townsville_open_2024
-https://www.poolstat.net.au/towns/knockout/6619/townsville-open-sun-pm-top-32-grade,townsville_open_2025
-https://www.poolstat.net.au/towns/knockout/8249/townsville-open-main-32-mixed-grade,townsville_open_2026
-
-# Geelong Open
-https://www.poolstat.net.au/geelong/knockout/7759/geelong-open-singles-championship,geelong_open_2026
-
-# Albury Open
-https://www.poolstat.net.au/poolvic/knockout/4888/auburywodonga-open,albury_open_2024
-https://www.poolstat.net.au/poolvic/knockout/6333/albury-open-open-grade,albury_open_2025
-https://www.poolstat.net.au/poolvic/knockout/7818/albury-open-grade,albury_open_2026
-
-# Joybell Cup
-https://www.poolstat.net.au/seba/knockout/6085/joybell-cup,joybell_cup_2025
-https://www.poolstat.net.au/seba/knockout/7584/joybell-cup-2026-open-grade,joybell_cup_2026
-
-# Good Friday (VIC)
-# 2026 created in a CSV file from image
-
-# ANZAC (VIC)
-# 2026 created in a CSV file from image
 
 # Berri
 
