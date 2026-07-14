@@ -7,7 +7,7 @@ services:
   - type: web
     name: poolrankings
     runtime: ruby
-    plan: free
+    plan: starter
     buildCommand: './bin/render-build.sh'
     startCommand: 'bundle exec rails server'
     envVars:
