@@ -17,7 +17,7 @@ namespace :import do
       year       = meta['year'].to_i
       start_date = Date.parse(meta['start_date'])
       end_date   = Date.parse(meta['end_date'])
-      multiplier = meta['multiplier'].to_f
+      tier       = meta['tier'].to_i
 
       unless File.exist?(file)
         warn "  SKIP #{meta['file']} — file not found"
@@ -29,9 +29,9 @@ namespace :import do
       tournament = Tournament.find_or_create_by!(name: t_name)
 
       edition = Edition.find_or_initialize_by(tournament: tournament, year: year)
-      edition.assign_attributes(start_date: start_date, end_date: end_date, multiplier: multiplier)
+      edition.assign_attributes(start_date: start_date, end_date: end_date, tier: tier)
       edition.save!
-      puts "  Edition: #{edition.name} (#{start_date} – #{end_date}, ×#{multiplier})"
+      puts "  Edition: #{edition.name} (#{start_date} – #{end_date}, #{tier})"
 
       placing_rows = CSV.read(file, headers: true)
       created = skipped = 0
