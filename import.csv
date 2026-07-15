@@ -67,7 +67,11 @@ results/tatts_hotel_classic_2025.csv,Tatts Hotel Classic,2025,2025-01-11,2025-01
 results/tatts_hotel_classic_2026.csv,Tatts Hotel Classic,2026,2026-01-17,2026-01-18,3
 
 # Geelong Open
-results/geelong_open_2026.csv,Geelong Open,2026,2023-01-14,2023-01-15,3
+results/geelong_open_2025.csv,Geelong Open,2025,2025-02-08,2025-02-09,3
+results/geelong_open_2026.csv,Geelong Open,2026,2026-02-14,2026-02-15,3
+
+# Berri Open
+results/berri_open_2025.csv,Berri Open,2025,2025-07-19,2025-07-20,3
 
 # NT Open
 results/nt_open_2025.csv,NT Open,2025,2025-01-26,2025-01-26,3
