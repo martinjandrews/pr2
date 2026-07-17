@@ -15,6 +15,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder'
 gem 'devise', '~> 5.0'
 gem 'simple_form', '~> 5.2'
+gem 'rack-cors'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri windows]
