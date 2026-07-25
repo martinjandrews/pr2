@@ -1,7 +1,7 @@
 databases:
   - name: poolrankings_production
     user: poolrankings
-    plan: free
+    plan: basic
 
 services:
   - type: web
