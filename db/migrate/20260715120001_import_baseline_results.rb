@@ -134,7 +134,7 @@ class ImportBaselineResults < ActiveRecord::Migration[7.2]
     Edition.import('results/readys_xmas_cup_2022.csv', 'Ready\'s Xmas Cup', 2022, '2022-12-16', '2022-12-18', 4)
     Edition.import('results/readys_xmas_cup_2023.csv', 'Ready\'s Xmas Cup', 2023, '2023-12-17', '2023-12-17', 4)
     Edition.import('results/readys_xmas_cup_2024.csv', 'Ready\'s Xmas Cup', 2024, '2024-12-15', '2024-12-15', 4)
-    Edition.import('results/readys_xmas_cup_2025.csv', 'Ready\'s Xmas Cup', 2026, '2025-12-14', '2025-12-14', 4)
+    Edition.import('results/readys_xmas_cup_2025.csv', 'Ready\'s Xmas Cup', 2025, '2025-12-14', '2025-12-14', 4)
 
   end
 
