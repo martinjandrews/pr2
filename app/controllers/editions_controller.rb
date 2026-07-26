@@ -74,6 +74,6 @@ class EditionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def edition_params
-      params.require(:edition).permit(:year, :start_date, :end_date, :multiplier, :tournament_id)
+      params.require(:edition).permit(:year, :start_date, :end_date, :tier, :tournament_id)
     end
 end
