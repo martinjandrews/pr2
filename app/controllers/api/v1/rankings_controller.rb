@@ -14,8 +14,8 @@ module Api
           {
             rank: displayed_rank,
             player: { id: player.id, name: player.name },
-            last_year_points: points[:last_year].sort.reverse.first(4).sum,
-            previous_year_points: points[:previous_year].sort.reverse.first(4).sum,
+            last_year_points: points[:last_year].sort.reverse.first(Rankings::TOP_RESULTS_PER_SLOT).sum,
+            previous_year_points: points[:previous_year].sort.reverse.first(Rankings::TOP_RESULTS_PER_SLOT).sum,
             total: points[:total]
           }
         end
