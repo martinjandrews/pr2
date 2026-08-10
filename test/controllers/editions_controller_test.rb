@@ -22,7 +22,7 @@ class EditionsControllerTest < ActionDispatch::IntegrationTest
         year: 2022,
         start_date: "2022-06-01",
         end_date: "2022-06-02",
-        multiplier: 1.0,
+        tier: 4,
         tournament_id: tournaments(:states).id
       } }
     end

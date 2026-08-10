@@ -47,7 +47,7 @@ class TournamentsControllerTest < ActionDispatch::IntegrationTest
 
   test "unauthenticated request redirects to sign in" do
     sign_out :user
-    get tournaments_url
+    get new_tournament_url
     assert_redirected_to new_user_session_url
   end
 end

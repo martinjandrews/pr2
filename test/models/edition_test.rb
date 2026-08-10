@@ -15,8 +15,8 @@ class EditionTest < ActiveSupport::TestCase
     refute editions(:nationals_2024).valid?
   end
 
-  test "invalid with zero multiplier" do
-    editions(:nationals_2024).multiplier = 0
+  test "invalid with zero tier" do
+    editions(:nationals_2024).tier = 0
     refute editions(:nationals_2024).valid?
   end
 

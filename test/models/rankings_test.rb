@@ -57,9 +57,9 @@ class RankingsTest < ActiveSupport::TestCase
     assert_equal players(:carol), sorted[2][0]
   end
 
-  test "top 4 results per slot are used when player has more than 4" do
-    # Only relevant when a player has > 4 placings in a slot; verified via constant
-    assert_equal 4, Rankings::TOP_RESULTS_PER_SLOT
+  test "top 3 results per slot are used when player has more than 3" do
+    # Only relevant when a player has > 3 placings in a slot; verified via constant
+    assert_equal 3, Rankings::TOP_RESULTS_PER_SLOT
   end
 
   test "editions after the as_of date are ignored" do
