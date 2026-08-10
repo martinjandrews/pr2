@@ -80,4 +80,19 @@ class RankingsTest < ActiveSupport::TestCase
   test "as_of defaults to the current date" do
     assert_equal Date.current, Rankings.new.instance_variable_get(:@as_of)
   end
+
+  test "ranked_player_list assigns ranks, with ties sharing a rank" do
+    ranked = @rankings.ranked_player_list
+    assert_equal 1, ranked[players(:alice)][:rank]
+    assert_equal 2, ranked[players(:bob)][:rank]
+    assert_equal 3, ranked[players(:carol)][:rank]
+    # dave and eve are both on 0 points, so they tie for the next rank
+    assert_equal 4, ranked[players(:dave)][:rank]
+    assert_equal 4, ranked[players(:eve)][:rank]
+  end
+
+  test "rank_for returns the same rank and total as ranked_player_list" do
+    assert_equal({ rank: 1, total: 570 }, @rankings.rank_for(players(:alice)))
+    assert_equal({ rank: 2, total: 180 }, @rankings.rank_for(players(:bob)))
+  end
 end

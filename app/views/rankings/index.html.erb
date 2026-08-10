@@ -6,7 +6,7 @@
       <%= link_to "Reset to today", rankings_path, class: "btn btn-link" %>
     <% end %>
 
-    <p class="text-muted">Showing rankings as of <%= @as_of.to_fs(:long) %>.</p>
+    <p class="text-muted">Showing rankings as of <%= @as_of.to_fs(:long) %>.<% if @change_since %> Comparing against <%= @change_since.to_fs(:long) %>.<% end %></p>
 
     <%= render 'rankings_table', summary: false %>
   </div>

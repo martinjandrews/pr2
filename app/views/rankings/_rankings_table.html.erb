@@ -2,26 +2,53 @@
   <thead>
   <tr>
     <th width="10%" class="text-center">Rank</th>
+    <% if @previous_player_list %>
+      <th width="10%" class="text-center">Change</th>
+    <% end %>
     <th width="60%">Player</th>
     <th width="10%" class="<%= 'hidden ' if summary %>hidden-xs text-center">Last<br/>12 Mths</th>
     <th width="10%" class="<%= 'hidden ' if summary %>hidden-xs text-center">Prev<br/>12 Mths</th>
     <th width="10%" class="text-center">Points</th>
+    <% if @previous_player_list %>
+      <th width="10%" class="text-center">Change</th>
+    <% end %>
   </tr>
   </thead>
 
   <tbody>
-  <% rank = 1 %>
-  <% last_points = 0 %>
+  <% last_rank = nil %>
   <% @player_list.each do |player, points| %>
+      <% previous = @previous_player_list && @previous_player_list[player] %>
+      <% changed = previous && previous[:rank] != points[:rank] %>
       <tr>
-        <td class="text-center"><%= rank if last_points != points[:total] %></td>
+        <td class="text-center">
+          <%= points[:rank] unless points[:rank] == last_rank %>
+        </td>
+        <% if @previous_player_list %>
+          <td class="text-center">
+            <% if changed %>
+              <% if previous[:rank] > points[:rank] %>
+                <span class="text-success" title="Up from #<%= previous[:rank] %>">&#9650; <%= previous[:rank] %></span>
+              <% else %>
+                <span class="text-danger" title="Down from #<%= previous[:rank] %>">&#9660; <%= previous[:rank] %></span>
+              <% end %>
+            <% end %>
+          </td>
+        <% end %>
         <td><%= link_to player.name, player, :class => "navigation-link" %></td>
         <td class="<%= 'hidden ' if summary %>hidden-xs text-right"><%= points[:last_year].sort.reverse.first(Rankings::TOP_RESULTS_PER_SLOT).sum %></td>
         <td class="<%= 'hidden ' if summary %>hidden-xs text-right"><%= points[:previous_year].sort.reverse.first(Rankings::TOP_RESULTS_PER_SLOT).sum %></td>
         <td class="text-right"><%= points[:total] %></td>
+        <% if @previous_player_list %>
+          <td class="text-right">
+            <% if changed %>
+              <% points_diff = points[:total] - previous[:total] %>
+              <span class="<%= points_diff >= 0 ? 'text-success' : 'text-danger' %>"><%= points_diff >= 0 ? '+' : '' %><%= points_diff %></span>
+            <% end %>
+          </td>
+        <% end %>
       </tr>
-      <% rank += 1 %>
-      <% last_points = points[:total] %>
+      <% last_rank = points[:rank] %>
   <% end %>
   </tbody>
 </table>

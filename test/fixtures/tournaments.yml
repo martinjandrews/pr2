@@ -5,3 +5,7 @@ nationals:
 states:
   name: State Championships
   description: State level competition
+
+regionals:
+  name: Regional Championship
+  description: Regional level competition

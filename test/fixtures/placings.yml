@@ -27,3 +27,9 @@ alice_states_2024:
   position: 2
   edition: states_2024
   player: alice
+
+# regionals_2030: Eve wins (1st, 120*3=360pts) - see comment in editions.yml
+eve_regionals_2030:
+  position: 1
+  edition: regionals_2030
+  player: eve

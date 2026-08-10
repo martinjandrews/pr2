@@ -26,4 +26,32 @@ class RankingsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "p", text: "Showing rankings as of #{Date.current.to_fs(:long)}."
   end
+
+  test "does not show a comparison when change_since is not given" do
+    get rankings_url
+    assert_response :success
+    assert_select ".text-success", false
+    assert_select ".text-danger", false
+    assert_select "th", text: "Change", count: 0
+  end
+
+  test "shows rank changes when change_since is given" do
+    # As of 2024-07-01: alice 1st, bob 2nd, carol 3rd, dave/eve tied last (4th).
+    # As of 2030-07-01: eve's regionals win (360pts) vaults her from tied-4th
+    # to 2nd, pushing bob, carol and dave down a spot; alice is unaffected.
+    get rankings_url, params: { as_of: "2030-07-01", change_since: "2024-07-01" }
+    assert_response :success
+
+    assert_select "p", text: "Showing rankings as of July 01, 2030. Comparing against July 01, 2024."
+
+    # Eve improved from (tied) rank 4 to rank 2.
+    assert_select "td.text-center span.text-success", text: "▲ 4"
+    # Bob, carol and dave each worsened by one place, with no points change.
+    assert_select "td.text-center span.text-danger", text: "▼ 2", count: 1
+    assert_select "td.text-center span.text-danger", text: "▼ 3", count: 1
+    assert_select "td.text-center span.text-danger", text: "▼ 4", count: 1
+    assert_select "th", text: "Change"
+    assert_select "td.text-center span.text-success", text: "+360"
+    assert_select "td.text-center span.text-success", text: "+0", count: 3
+  end
 end

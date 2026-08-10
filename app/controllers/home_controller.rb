@@ -2,8 +2,7 @@ class HomeController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
 
   def index
-    rankings = Rankings.new
-    @player_list = rankings.player_list.sort_by { |k, v| v[:total] }.reverse[0..19]
+    @player_list = Rankings.new.ranked_player_list.first(20)
     @edition = Edition.order(:end_date).last
   end
 

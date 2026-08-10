@@ -25,3 +25,12 @@ states_2023:
   end_date: 2023-06-02
   tier: 4
   tournament: states
+
+# Dated well beyond "today" so it's excluded from the default (as_of-less)
+# rankings and only surfaces in tests that explicitly pass a future as_of.
+regionals_2030:
+  year: 2030
+  start_date: 2030-06-01
+  end_date: 2030-06-01
+  tier: 2
+  tournament: regionals

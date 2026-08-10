@@ -66,16 +66,20 @@ class Rankings
      prev_placings.sort_by { |p| -Rankings.points_for(p) }.first(TOP_RESULTS_PER_SLOT)).to_set
   end
 
-  def rank_for(player)
-    sorted = player_list.sort_by { |_, v| v[:total] }.reverse
-    displayed_rank = 1
+  def ranked_player_list
+    sorted = player_list.sort_by { |_, points| points[:total] }.reverse
     last_total = nil
-    sorted.each_with_index do |(p, points), i|
+    displayed_rank = 1
+    sorted.each_with_index.each_with_object({}) do |((player, points), i), ranked|
       displayed_rank = i + 1 if last_total.nil? || last_total != points[:total]
-      return { rank: displayed_rank, total: points[:total] } if p == player
       last_total = points[:total]
+      ranked[player] = points.merge(rank: displayed_rank)
     end
-    nil
+  end
+
+  def rank_for(player)
+    points = ranked_player_list[player]
+    points && { rank: points[:rank], total: points[:total] }
   end
 
   private
