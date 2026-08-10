@@ -2,26 +2,26 @@ nationals_2024:
   year: 2024
   start_date: 2024-03-01
   end_date: 2024-03-03
-  multiplier: 2.0
+  tier: 3
   tournament: nationals
 
 nationals_2023:
   year: 2023
   start_date: 2023-03-01
   end_date: 2023-03-03
-  multiplier: 2.0
+  tier: 3
   tournament: nationals
 
 states_2024:
   year: 2024
   start_date: 2024-06-01
   end_date: 2024-06-02
-  multiplier: 1.0
+  tier: 4
   tournament: states
 
 states_2023:
   year: 2023
   start_date: 2023-06-01
   end_date: 2023-06-02
-  multiplier: 1.0
+  tier: 4
   tournament: states
