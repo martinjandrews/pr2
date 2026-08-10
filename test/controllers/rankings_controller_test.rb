@@ -50,8 +50,8 @@ class RankingsControllerTest < ActionDispatch::IntegrationTest
     assert_select "td.text-center span.text-danger", text: "▼ 2", count: 1
     assert_select "td.text-center span.text-danger", text: "▼ 3", count: 1
     assert_select "td.text-center span.text-danger", text: "▼ 4", count: 1
-    assert_select "th", text: "Change"
-    assert_select "td.text-center span.text-success", text: "+360"
-    assert_select "td.text-center span.text-success", text: "+0", count: 3
+    assert_select "th", text: "Change", count: 2
+    assert_select "td.text-right span.text-success", text: "+360"
+    assert_select "td.text-right span.text-success", text: "+0", count: 3
   end
 end
