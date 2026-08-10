@@ -41,10 +41,8 @@
         <td class="text-right"><%= points[:total] %></td>
         <% if @previous_player_list %>
           <td class="text-right">
-            <% if changed %>
-              <% points_diff = points[:total] - previous[:total] %>
-              <span class="<%= points_diff >= 0 ? 'text-success' : 'text-danger' %>"><%= points_diff >= 0 ? '+' : '' %><%= points_diff %></span>
-            <% end %>
+            <% points_diff = points[:total] - previous[:total] %>
+            <span class="<%= points_diff >= 0 ? 'text-success' : 'text-danger' %>"><%= points_diff >= 0 ? '+' : '' %><%= points_diff %></span>
           </td>
         <% end %>
       </tr>
