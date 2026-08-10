@@ -52,6 +52,20 @@ class RankingsControllerTest < ActionDispatch::IntegrationTest
     assert_select "td.text-center span.text-danger", text: "▼ 4", count: 1
     assert_select "th", text: "Change", count: 2
     assert_select "td.text-right span.text-success", text: "+360"
-    assert_select "td.text-right span.text-success", text: "+0", count: 3
+    # Alice's rank is unchanged, but the points diff (0) still shows, along
+    # with bob, carol and dave whose points also didn't change.
+    assert_select "td.text-right span.text-success", text: "+0", count: 4
+  end
+
+  test "shows the points diff even when a player's rank hasn't changed" do
+    # As of 2024-04-01, states_2024 hasn't happened yet so alice's total is
+    # 480; by 2030-07-01 it's grown to 570, but she's #1 both times, so no
+    # rank-change arrow should render for her - just the points diff.
+    get rankings_url, params: { as_of: "2030-07-01", change_since: "2024-04-01" }
+    assert_response :success
+
+    row = Nokogiri::HTML(response.body).css("tr").find { |tr| tr.text.include?(players(:alice).name) }
+    assert_nil row.at_css("td.text-center span.text-success, td.text-center span.text-danger")
+    assert_equal "+90", row.at_css("td.text-right span").text
   end
 end

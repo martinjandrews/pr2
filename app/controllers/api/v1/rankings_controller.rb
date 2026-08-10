@@ -19,7 +19,7 @@ module Api
             previous_year_points: points[:previous_year].sort.reverse.first(Rankings::TOP_RESULTS_PER_SLOT).sum,
             total: points[:total],
             previous_rank: changed ? previous[:rank] : nil,
-            previous_total: changed ? previous[:total] : nil
+            previous_total: previous ? previous[:total] : nil
           }
         end
 
