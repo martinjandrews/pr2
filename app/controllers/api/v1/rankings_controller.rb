@@ -2,7 +2,8 @@ module Api
   module V1
     class RankingsController < BaseController
       def index
-        rankings = Rankings.new
+        as_of = parse_as_of(params[:as_of]) || Date.current
+        rankings = Rankings.new(as_of: as_of)
         sorted = rankings.player_list.sort_by { |_, points| points[:total] }.reverse
 
         last_total = nil
@@ -21,6 +22,14 @@ module Api
         end
 
         render json: results
+      end
+
+      private
+
+      def parse_as_of(value)
+        Date.parse(value) if value.present?
+      rescue ArgumentError
+        nil
       end
     end
   end

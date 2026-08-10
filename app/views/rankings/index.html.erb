@@ -2,6 +2,12 @@
 
 <div class="row">
   <div class="col-md-9">
+    <% if params[:as_of].present? %>
+      <%= link_to "Reset to today", rankings_path, class: "btn btn-link" %>
+    <% end %>
+
+    <p class="text-muted">Showing rankings as of <%= @as_of.to_fs(:long) %>.</p>
+
     <%= render 'rankings_table', summary: false %>
   </div>
 </div>
