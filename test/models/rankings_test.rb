@@ -61,4 +61,23 @@ class RankingsTest < ActiveSupport::TestCase
     # Only relevant when a player has > 4 placings in a slot; verified via constant
     assert_equal 4, Rankings::TOP_RESULTS_PER_SLOT
   end
+
+  test "editions after the as_of date are ignored" do
+    rankings = Rankings.new(as_of: Date.new(2023, 12, 31))
+    player_list = rankings.player_list
+
+    # nationals_2024 and states_2024 both end after the as_of date, so
+    # only nationals_2023 (Alice's win) should be counted.
+    alice = player_list[players(:alice)]
+    assert_equal [240], alice[:last_year]
+    assert_equal [], alice[:previous_year]
+    assert_equal 240, alice[:total]
+
+    bob = player_list[players(:bob)]
+    assert_equal 0, bob[:total]
+  end
+
+  test "as_of defaults to the current date" do
+    assert_equal Date.current, Rankings.new.instance_variable_get(:@as_of)
+  end
 end

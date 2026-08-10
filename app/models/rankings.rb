@@ -15,11 +15,12 @@ class Rankings
 
   TOP_RESULTS_PER_SLOT = 3
 
-  def initialize
+  def initialize(as_of: Date.current)
+    @as_of = as_of
     @last_year_editions = []
     @previous_year_editions = []
     @player_points = {}
-    Edition.includes(:tournament, placings: :player).order(end_date: :desc).each do |edition|
+    Edition.includes(:tournament, placings: :player).where(end_date: ..@as_of).order(end_date: :desc).each do |edition|
       if tournament_count(@last_year_editions, edition.tournament) < 1
         @last_year_editions << edition
       elsif tournament_count(@previous_year_editions, edition.tournament) < 1
